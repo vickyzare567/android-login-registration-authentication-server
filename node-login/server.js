@@ -18,7 +18,7 @@ io.on('connection', function (socket) {
     users.push(nick);
     socket.nick=nick;
     idsnicks[nick]=socket.id;
-    io.emit('userlist', users);
+    io.emit('userlist', {hello: users});
   })
 
   socket.on('send', function  (data) {
