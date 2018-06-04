@@ -4,11 +4,7 @@ var options = {transport: ['websocket']};
 var  io  = require('socket.io')(options).listen(app.listen(process.env.PORT || 3000));
 
 
-app.get('/', function(req, res){
-     res.sendfile('index.html');
-    });
-
- app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/public'));
 
 var users=[];
 var idsnicks={};
