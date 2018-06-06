@@ -13,6 +13,7 @@ io.on('connection', function (socket) {
   socket.on('login', function  (nick) {
     users.push(nick);
     socket.nick=nick;
+    console.log(socket.nick);
     idsnicks[nick]=socket.id;
     io.emit('userlist', {hello: users});
   })
