@@ -43,7 +43,7 @@ module.exports = router => {
 		const name = req.body.name;
 		const email = req.body.email;
 		const password = req.body.password;
-		const mobile = req.body.password;
+		const mobile = req.body.mobile;
 		if (!name || !email || !password || !mobile || !name.trim() || !email.trim() || !password.trim() || !mobile.trim()) {
 
 			res.status(400).json({message: 'Invalid Request !'});
