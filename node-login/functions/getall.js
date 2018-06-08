@@ -1,10 +1,10 @@
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var url = "mongodb://localhost:27017/node-login";
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("node-login");
-  dbo.collection("email").find({}).toArray(function(err, result) {
+  dbo.collection("users").find({}).toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
     db.close();
