@@ -19,6 +19,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('send', function  (data) {
+    console.log(data);
     if (io.sockets.connected[idsnicks[data.usr]]!==undefined) {
     io.sockets.connected[idsnicks[data.usr]].emit('sendmsg', {msg:data.msg, usr:socket.nick});
    }
