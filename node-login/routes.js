@@ -7,7 +7,6 @@ const register = require('./functions/register');
 const login = require('./functions/login');
 const profile = require('./functions/profile');
 const password = require('./functions/password');
-const getallusers = require('./functions/getallusers');
 const config = require('./config/config.json');
 
 module.exports = router => {
@@ -77,23 +76,6 @@ module.exports = router => {
 			res.status(401).json({ message: 'Invalid Token !' });
 		}
 	});
-
-	router.get('/users/:id', (req,res) => {
-
-		if (checkToken(req)) {
-
-			getallusers.getall(req.params.id)
-
-			.then(result => res.json(result))
-
-			.catch(err => res.status(err.status).json({ message: err.message }));
-
-		} else {
-
-			res.status(401).json({ message: 'Invalid Token !' });
-		}
-	});
-	
 	
 	router.put('/users/:id', (req,res) => {
 
