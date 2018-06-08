@@ -1,15 +1,12 @@
-'use strict';
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/node-login";
 
-const user = require('../models/user');
-
-exports.getProfile = email => 
-	
-	new Promise((resolve,reject) => {
-
-		user.find({ email: email }, { name: 1, email: 1, mobile : 1, created_at: 1, _id: 0 })
-
-		.then(users => resolve(users[0]))
-
-		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
-
-	});
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("node-login");
+  dbo.collection("users").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
