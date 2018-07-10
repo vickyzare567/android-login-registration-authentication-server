@@ -80,7 +80,7 @@ module.exports = router => {
 	});
 	
 	
-	router.get('/getall', (req,res) => {
+	router.get('/getall/:id', (req,res) => {
 
 		if (checkToken(req)) {
 
