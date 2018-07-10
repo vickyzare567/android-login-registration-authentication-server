@@ -2,7 +2,7 @@
 
 const user = require('../models/user');
 
-exports.getProfile  => 
+exports.getProfile = email => 
 	
 new Promise((resolve,reject) => {
 
