@@ -84,7 +84,7 @@ module.exports = router => {
 
 		if (checkToken(req)) {
 
-			getallusers.getProfile()
+			getallusers.getProfile(req.params.id)
 
 			.then(result => res.json(result))
 
