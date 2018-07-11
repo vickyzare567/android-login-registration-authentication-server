@@ -6,8 +6,7 @@ exports.getProfile = email =>
 	
 new Promise((resolve,reject) => {
 
-		 u= user.find({})
-		
+		 u= user.all({})
 	
 		.then(users => resolve(users[0]))
 
