@@ -7,11 +7,12 @@ exports.getProfile = email =>
 new Promise((resolve,reject) => {
 
 		user.find({})
-		console.log(user);
+		
 	
 		.then(users => resolve(users[0]))
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
+	console.log(user);
 
 	});	
 
