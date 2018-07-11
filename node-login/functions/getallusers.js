@@ -1,18 +1,18 @@
 'use strict';
 
 const user = require('../models/user');
-
+var u;
 exports.getProfile = email => 
 	
 new Promise((resolve,reject) => {
 
-		user.find({})
+		 u= user.find({})
 		
 	
 		.then(users => resolve(users[0]))
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
-	console.log(user);
+	console.log(u);
 
 	});	
 
