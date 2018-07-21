@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/node-login";
-var data;
+var data="";
 
 app.get('/', (req, res) => {
    
@@ -15,9 +15,8 @@ app.get('/', (req, res) => {
               var dbo = db.db("node-login");
               dbo.collection("users").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                 data=result;
-                console.log(result);
-                db.close();
+                 data=JSON.stringify(result);
+                 db.close();
               });
             });
       console.log(data);
