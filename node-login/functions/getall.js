@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
               });
             });
       console.log(data);
-  res.json("message":data);
+  res.json({"message":data});
 });
 
 
