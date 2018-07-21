@@ -15,12 +15,12 @@ app.get('/', (req, res) => {
               var dbo = db.db("node-login");
               dbo.collection("users").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                 data=JSON.stringify(result);
+                 res=JSON.stringify(result);
                  db.close();
               });
             });
-      console.log(data);
-  res.json({"message":data});
+      console.log(res);
+  res.json({"message":res});
 });
 
 
