@@ -20,8 +20,8 @@ app.get('/', (req, res) => {
                 db.close();
               });
             });
-  
-  res.json(data);
+      console.log(data);
+  res.json("message":data);
 });
 
 
