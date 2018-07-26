@@ -7,13 +7,13 @@ app.use(bodyParser.json())
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/node-login";
 var data="";
-
+var records;
 MongoClient.connect(url, function(err, db) {
               if (err) throw err;
               var dbo = db.db("node-login");
               dbo.collection("users").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                 result=JSON.stringify(result);
+                 records=JSON.stringify(result);
                  db.close();
               });
             });
@@ -21,8 +21,8 @@ MongoClient.connect(url, function(err, db) {
 app.get('/', (req, res) => {
    
               
-      console.log(result);
-  res.json({"message":result});
+      console.log(records);
+  res.json({"message":records});
 });
 
 
