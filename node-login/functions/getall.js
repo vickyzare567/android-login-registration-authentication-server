@@ -9,24 +9,22 @@ var url = "mongodb://localhost:27017/node-login";
 var data="";
 var records;
 
-app.get('/', (req, res) => {
-   
-              MongoClient.connect(url, function(err, db) {
-              if (err) throw err;
-              var dbo = db.db("node-login");
-              dbo.collection("users").find({}).toArray(function(err, result) {
-                if (err) throw err;
-                 records=JSON.stringify(result);
-                 db.close();
-              });
-            });
 
-      console.log(records);
-  res.send(records);
+MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("node-login");
+        dbo.collection("users").find({}).toArray(function(err, result) {
+        if (err) throw err;
+            records=JSON.stringify(result);
+            db.close();
+		});
 });
 
-
-
+app.get('/', (req, res) => {
+   
+	console.log(records);
+	res.send(records);
+});
 
 
 app.listen(7769, () => {
