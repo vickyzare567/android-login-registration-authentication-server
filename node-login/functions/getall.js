@@ -8,19 +8,21 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/node-login";
 var data="";
 
-app.get('/', (req, res) => {
-   
-              MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function(err, db) {
               if (err) throw err;
               var dbo = db.db("node-login");
               dbo.collection("users").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                 res=JSON.stringify(result);
+                 result=JSON.stringify(result);
                  db.close();
               });
             });
-      console.log(res);
-  res.json({"message":res});
+
+app.get('/', (req, res) => {
+   
+              
+      console.log(result);
+  res.json({"message":result});
 });
 
 
