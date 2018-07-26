@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
    
               
       console.log(records);
-  res.write(records);
+  res.send(records);
 });
 
 
