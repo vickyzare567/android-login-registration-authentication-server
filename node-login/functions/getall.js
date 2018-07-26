@@ -8,7 +8,10 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/node-login";
 var data="";
 var records;
-MongoClient.connect(url, function(err, db) {
+
+app.get('/', (req, res) => {
+   
+              MongoClient.connect(url, function(err, db) {
               if (err) throw err;
               var dbo = db.db("node-login");
               dbo.collection("users").find({}).toArray(function(err, result) {
@@ -18,9 +21,6 @@ MongoClient.connect(url, function(err, db) {
               });
             });
 
-app.get('/', (req, res) => {
-   
-              
       console.log(records);
   res.send(records);
 });
