@@ -13,7 +13,7 @@ var records;
 MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("node-login");
-        dbo.collection("users").find({},{'name' : true},{ 'email' : true}).toArray(function(err, result) {
+        dbo.collection("users").find({},{'name' : true, 'email':true, 'mobile':true}).toArray(function(err, result) {
         if (err) throw err;
             records=JSON.stringify(result);
             db.close();
