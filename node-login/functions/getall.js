@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+var cron = require('cron');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -10,7 +11,10 @@ var data="";
 var records;
 
 
-MongoClient.connect(url, function(err, db) {
+var cronJob = cron.job("0 * * * * *", function(){
+    	// perform operation e.g. GET request http.get() etc.
+    	console.info('cron job completed');
+	MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("node-login");
         dbo.collection("users").find({},{'name' : true, 'email':true, 'mobile':true}).toArray(function(err, result) {
@@ -19,6 +23,10 @@ MongoClient.connect(url, function(err, db) {
             db.close();
 		});
 });
+}); 
+cronJob.start();
+
+
 
 app.get('/', (req, res) => {
    
