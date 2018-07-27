@@ -3,15 +3,19 @@
 const user = require('../models/user');
 var u;
 exports.getProfile = email => 
-	
+var records;
+
 new Promise((resolve,reject) => {
 
-		 u= user.find({email:email}, { name: 1, email: 1, mobile : 1, created_at: 1, _id: 0 })
-	
+		 u= user.find({}, { name: true, email: true, mobile : true }).toArray(function(err, result) {
+        			if (err) throw err;
+           			 records=JSON.stringify(result);
+			 console.log(records);
+			});
 		.then(users => resolve(users[0]))
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
-	console.log(u);
+		console.log(u);
 
 	});	
 
