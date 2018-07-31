@@ -4,7 +4,7 @@
 const firebase = require('../models/firebase');
 const bcrypt = require('bcryptjs');
 
-exports.registerUser = (fid, did, email) => 
+exports.updatefirebaseId = (fid, did, email) => 
 
 	new Promise((resolve,reject) => {
 
