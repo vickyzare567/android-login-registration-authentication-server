@@ -13,7 +13,7 @@ const fireSchema = mongoose.Schema({
 	
 });
 
-fireSchema.plugin(AutoIncrement, {inc_field: 'user_id', disable_hooks: true});
+fireSchema.plugin(AutoIncrement, {inc_field: 'fire_id', disable_hooks: true});
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/node-login');
