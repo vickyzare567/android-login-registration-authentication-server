@@ -7,7 +7,7 @@ const register = require('./functions/register');
 const login = require('./functions/login');
 const profile = require('./functions/profile');
 const password = require('./functions/password');
-const getallusers = require('./functions/getallusers');
+const fireid = require('./functions/firebaseid');
 
 const config = require('./config/config.json');
 
@@ -62,6 +62,32 @@ module.exports = router => {
 			.catch(err => res.status(err.status).json({ message: err.message }));
 		}
 	});
+	
+	
+	router.post('/fireid', (req, res) => {
+
+		const fid = req.body.fid;
+		const did = req.body.did;
+		const email = req.body.email;
+	
+		if (!fid || !did || !email || !fid.trim() || !did.trim() || !email.trim() ) {
+
+			res.status(400).json({message: 'Invalid Request !'});
+
+		} else {
+
+			fireid.updatefirebaseId(fid, did, email)
+
+			.then(result => {
+
+				res.setHeader('Location', '/fireid/'+email);
+				res.status(result.status).json({ message: result.message })
+			})
+
+			.catch(err => res.status(err.status).json({ message: err.message }));
+		}
+	});
+	
 
 	router.get('/users/:id', (req,res) => {
 
@@ -80,21 +106,6 @@ module.exports = router => {
 	});
 	
 	
-	router.get('/getall/:id', (req,res) => {
-
-		if (checkToken(req)) {
-
-			getallusers.getProfile(req.params.id)
-
-			.then(result => res.json(result))
-
-			.catch(err => res.status(err.status).json({ message: err.message }));
-
-		} else {
-
-			res.status(401).json({ message: 'Invalid Token !' });
-		}
-	});
 	
 	
 	
