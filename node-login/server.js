@@ -4,7 +4,7 @@ var options = {transport: ['websocket']};
 var  io  = require('socket.io')(options).listen(app.listen(process.env.PORT || 3000));
 
 
-const firebaseid = require('/models/firebase');
+const firebaseid = require('models/firebase');
 var firebaseidrecords;
 
 app.use(express.static(__dirname + '/public'));
