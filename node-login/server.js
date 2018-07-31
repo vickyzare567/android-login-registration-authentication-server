@@ -13,6 +13,10 @@ app.use(express.static(__dirname + '/public'));
 
 var users=[];
 var idsnicks={};
+
+var fid = getFirebaseId();
+console.log(fid);
+
 io.on('connection', function (socket) {
 
   socket.on('login', function  (nick) {
@@ -30,7 +34,7 @@ io.on('connection', function (socket) {
    }else{
     
 	console.log(" User Not Online.. ");
-	var fid= getFirebaseId(idsnicks[data.usr]);	
+//	var fid= getFirebaseId(idsnicks[data.usr]);	
 	console.log(fid);
    }
   })
@@ -56,7 +60,7 @@ function getFirebaseId(email){
 	MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("node-login");
-        dbo.collection("firebases").find({email : email},{'fid' : true, 'did':true, 'email':true}).toArray(function(err, result) {
+        dbo.collection("firebases").find({},{'fid' : true, 'did':true, 'email':true}).toArray(function(err, result) {
         if (err) throw err;
             firerecords=JSON.stringify(result);
 	    console.log(firerecords);
