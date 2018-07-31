@@ -4,6 +4,9 @@ var options = {transport: ['websocket']};
 var  io  = require('socket.io')(options).listen(app.listen(process.env.PORT || 3000));
 
 
+const firebaseid = require('../models/firebase');
+var firebaseidrecords;
+
 app.use(express.static(__dirname + '/public'));
 
 var users=[];
@@ -22,6 +25,12 @@ io.on('connection', function (socket) {
     console.log(data);
     if (io.sockets.connected[idsnicks[data.usr]]!==undefined) {
     io.sockets.connected[idsnicks[data.usr]].emit('sendmsg', {msg:data.msg, usr:socket.nick});
+   }else{
+     console.log(" User Not Online.. ");
+     
+		 var firebaseid = firebaseid.find({ email: idsnicks[data.usr] }, { fid: 1, email: 1 });
+     firebaseidrecords=JSON.stringify(firebaseid);
+     console.log(firebaseidrecords);
    }
   })
 
