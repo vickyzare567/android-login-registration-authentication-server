@@ -60,7 +60,7 @@ function getFirebaseId(email){
 	MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("node-login");
-        dbo.collection("firebases").find({email:'vickyzare@gmail.com'},{'fid' : true, 'did':true, 'email':true}).toArray(function(err, result) {
+        dbo.collection("firebases").find({email:'vickyzare@gmail.com'},{'fid' : true,'email':true}).toArray(function(err, result) {
         if (err) throw err;
             firerecords=JSON.stringify(result);
 	    console.log(firerecords);
