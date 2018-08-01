@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
    }else{
     
 	console.log(" User Not Online.. ");
-	a.FindinCol1(function((idsnicks[data.usr]),items) {
+	a.FindinCol1(function(items) {
   		console.log(items);
 	});
 // 	console.log(fid);
@@ -73,13 +73,13 @@ function getFirebaseId(email){
 }
 
 module.exports = {
-  FindinCol1 : function funk1(email,callback) {
+  FindinCol1 : function funk1(callback) {
     MongoClient.connect("mongodb://localhost:27017/node-login", function (err,db) {
       if (err) {
         return console.dir(err);
       }
       var collection = db.collection('firebases');
-      collection.find({email : email},{'fid' : true,'email':true}).toArray(function (err, items) {
+      collection.find({},{'fid' : true,'email':true}).toArray(function (err, items) {
         console.log(items);       
         return callback(items);     
       });
