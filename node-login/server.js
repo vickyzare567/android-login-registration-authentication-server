@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
    }else{
     
 	console.log(" User Not Online.. ");
-	a.FindinCol1(function(idsnicks[data.usr],items) {
+	a.FindinCol1(function((idsnicks[data.usr]),items) {
   		console.log(items);
 	});
 // 	console.log(fid);
