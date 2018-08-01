@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 var users=[];
 var idsnicks={};
 
-connect();
+connectDb();
 
 io.on('connection', function (socket) {
 
