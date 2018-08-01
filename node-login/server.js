@@ -60,7 +60,7 @@ function getFirebaseId(email){
         dbo.collection("firebases").find({email:email},{'fid' : true,'email':true}).toArray(function(err, result) {
         if (err){ throw err; console.log(err); }
             firerecords=JSON.stringify(result);
-	    console.log(firerecords);
+	    console.log(firerecords+result);
 	});
 	return firerecords;
 }
