@@ -14,8 +14,7 @@ app.use(express.static(__dirname + '/public'));
 var users=[];
 var idsnicks={};
 
-// var fid = getFirebaseId();
-// console.log(fid);
+
 
 io.on('connection', function (socket) {
 
@@ -34,10 +33,8 @@ io.on('connection', function (socket) {
    }else{
     
 	console.log(" User Not Online.. ");
-	a.FindinCol1(function(items) {
-  		console.log(items);
-	});
-// 	console.log(fid);
+	var fid = getFirebaseId();
+ 	console.log(fid.toString());
    }
   })
 
@@ -71,18 +68,3 @@ function getFirebaseId(email){
 	});
 	return firerecords;
 }
-
-module.exports = {
-  FindinCol1 : function funk1(callback) {
-    MongoClient.connect("mongodb://localhost:27017/node-login", function (err,db) {
-      if (err) {
-        return console.dir(err);
-      }
-      var collection = db.collection('firebases');
-      collection.find({},{'fid' : true,'email':true}).toArray(function (err, items) {
-        console.log(items);       
-        return callback(items);     
-      });
-    });
-  }
-};
