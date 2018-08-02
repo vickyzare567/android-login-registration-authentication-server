@@ -3,17 +3,12 @@ var app = express();
 var options = {transport: ['websocket']};
 var  io  = require('socket.io')(options).listen(app.listen(process.env.PORT || 3000));
 
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/node-login";
-var data="";
-var firerecords;
+const fireid = require('./functions/getFireBaseId');
 
 app.use(express.static(__dirname + '/public'));
 
 var users=[];
 var idsnicks={};
-
-connectDb();
 
 io.on('connection', function (socket) {
 
@@ -31,8 +26,13 @@ io.on('connection', function (socket) {
     io.sockets.connected[idsnicks[data.usr]].emit('sendmsg', {msg:data.msg, usr:socket.nick});
    }else{
 	console.log(" User Not Online.. ");
-	var fid = getFirebaseId(idsnicks[data.usr]);
- 	console.log(fid);
+	
+	var res;   
+	fireid.getfirebaseid(idsnicks[data.usr])
+	.then(result => res.json(result))
+	.catch(err => res.status(err.status).json({ message: err.message }));
+ 	
+	console.log(res);
    }
   })
 
@@ -53,18 +53,5 @@ io.on('connection', function (socket) {
 
   });
 
-function getFirebaseId(email){
-	MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("node-login");	
-        dbo.collection("firebases").find({email:email},{'fid' : true,'email':true}).toArray(function(err, result) {
-        if (err){ throw err; console.log(err); }
-            firerecords=JSON.stringify(result);
-	    console.log(firerecords+result);
-	     db.close();
-	});
-	});
-	return firerecords;
-}
 
 
