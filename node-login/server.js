@@ -36,9 +36,9 @@ io.on('connection', function (socket) {
     if (io.sockets.connected[idsnicks[data.usr]]!==undefined) {
     io.sockets.connected[idsnicks[data.usr]].emit('sendmsg', {msg:data.msg, usr:socket.nick});
    }else{
-	console.log(" User Not Online.. ");
+	console.log(" User Not Online.. " + idsnicks[data.usr]);
 	// var fid = getFirebaseId(idsnicks[data.usr]);
-	getFirebaseId(idsnicks[data.usr],function(data){
+	getFirebaseId((idsnicks[data.usr]),function(data){
         var fid = data;
             console.log("data here :- ",fid);
     });
