@@ -42,7 +42,6 @@ io.on('connection', function (socket) {
         var fid = data;
             console.log("data here :- ",fid);
     });
- 	console.log(fid);
    }
   })
 
