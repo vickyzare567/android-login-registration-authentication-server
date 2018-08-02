@@ -1,14 +1,25 @@
 var express = require('express');
 var app = express();
 var options = {transport: ['websocket']};
-var  io  = require('socket.io')(options).listen(app.listen(process.env.PORT || 3000));
+var  io  = require('socket.io')(options).listen(app.listen(3000, () => console.log('app listening on port 3000!')));
 
-const fireid = require('./functions/getFireBaseId');
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/node-login";
+var data="";
+var firerecords;
 
 app.use(express.static(__dirname + '/public'));
 
+app.get('/',function(req,res){
+       
+    res.sendFile('index.html');
+
+});
+
 var users=[];
 var idsnicks={};
+
+// connectDb();
 
 io.on('connection', function (socket) {
 
@@ -26,13 +37,12 @@ io.on('connection', function (socket) {
     io.sockets.connected[idsnicks[data.usr]].emit('sendmsg', {msg:data.msg, usr:socket.nick});
    }else{
 	console.log(" User Not Online.. ");
-	
-	var res;   
-	fireid.getfirebaseid(idsnicks[data.usr])
-	.then(result => res=result )
-	.catch(err => res.status(err.status).json({ message: err.message }));
- 	
-	console.log(res);
+	// var fid = getFirebaseId(idsnicks[data.usr]);
+	getFirebaseId('santosh@gmail.com',function(data){
+        var fid = data;
+            console.log("data here :- ",fid);
+    });
+ 	console.log(fid);
    }
   })
 
@@ -53,5 +63,19 @@ io.on('connection', function (socket) {
 
   });
 
-
-
+function getFirebaseId(email,callback){
+	MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("node-login");	
+        // console.log('Email :- ',email);
+        // ,{'fid' : true,'email':true}
+        dbo.collection("firebases").find({email:email},{'fid' : true,'email':true}).toArray(function(err, result) {
+        if (err){ throw err; console.log(err); }
+            firerecords=JSON.stringify(result);
+        callback(firerecords);
+	     db.close();
+	});
+    });
+    // console.log('sending return ',firerecords);
+	// return firerecords;
+}
