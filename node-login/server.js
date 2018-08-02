@@ -38,7 +38,7 @@ io.on('connection', function (socket) {
    }else{
 	console.log(" User Not Online.. ");
 	// var fid = getFirebaseId(idsnicks[data.usr]);
-	getFirebaseId('santosh@gmail.com',function(data){
+	getFirebaseId('vickyzare@gmail.com',function(data){
         var fid = data;
             console.log("data here :- ",fid);
     });
