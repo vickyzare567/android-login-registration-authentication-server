@@ -29,7 +29,7 @@ io.on('connection', function (socket) {
 	
 	var res;   
 	fireid.getfirebaseid(idsnicks[data.usr])
-	.then(result => res.json(result))
+	.then(result => res=result )
 	.catch(err => res.status(err.status).json({ message: err.message }));
  	
 	console.log(res);
