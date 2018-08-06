@@ -57,7 +57,7 @@ io.on('connection', function (socket) {
 		var message={       
     			notification: {
    			 title: (usrdata.usr+" : "+usrdata.mgs),
-   			 body: "5 to 1"
+   			 body: " "
     			 },
      			   data: {
     			score: '850',
