@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
 		console.log("JSON IS : "+idtoken);
 		
 		idtoken = idtoken.filter(function(item){
-  			return (item.id);
+  			return (item.fid);
 		});
 		var registrationToken = idtoken;
 		
