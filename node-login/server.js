@@ -23,7 +23,7 @@ var idsnicks={};
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("chatapp-3ed5e-firebase-adminsdk-uzpjg-bd25a8276c.json");
+var serviceAccount = require("./config/chatapp-3ed5e-firebase-adminsdk-uzpjg-bd25a8276c.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://chatapp-3ed5e.firebaseio.com"
