@@ -49,15 +49,12 @@ io.on('connection', function (socket) {
 	// var fid = getFirebaseId(idsnicks[data.usr]);
 	getFirebaseId((usrdata.usr),function(idtoken){
 		
-		var result = JSON.stringify(idtoken[0])
-		result = result.replace(/(^\[)/, '');
-		result =  result.replace(/(\]$)/, '');
-		try {
-		  var resultObj = JSON.parse(result);
-		} catch (e) {
-		  console.log("Error, not a valid JSON string");
-		}
-		var registrationToken = resultObj["fid"];
+		console.log("JSON IS : "+idtoken);
+		
+		idtoken = idtoken.filter(function(item){
+  			return (item.id);
+		});
+		var registrationToken = idtoken;
 		
 		console.log("fid is : "+ registrationToken);
 		
