@@ -49,8 +49,7 @@ io.on('connection', function (socket) {
 	// var fid = getFirebaseId(idsnicks[data.usr]);
 	getFirebaseId((usrdata.usr),function(idtoken){
 		
-		console.log("firebase id : "+ idtoken)
-        	var result = JSON.stringify(idtoken[0])
+		var result = JSON.stringify(idtoken[0])
 		result = result.replace(/(^\[)/, '');
 		result =  result.replace(/(\]$)/, '');
 		try {
@@ -60,6 +59,7 @@ io.on('connection', function (socket) {
 		}
 		var registrationToken = resultObj["fid"];
 		
+		console.log("fid is : "+ registrationToken);
 		
 		// See documentation on defining a message payload.
 		var message={       
