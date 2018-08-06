@@ -51,12 +51,9 @@ io.on('connection', function (socket) {
 		
 		console.log("JSON IS : "+idtoken);
 		
-		idtoken = idtoken.filter(function(item){
-  			return (item.fid);
-		});
-		var registrationToken = idtoken;
+		var registrationToken = idtoken[0].fid;
 		
-		console.log("fid is : "+ registrationToken);
+		console.log(" fid is : "+ registrationToken);
 		
 		// See documentation on defining a message payload.
 		var message={       
