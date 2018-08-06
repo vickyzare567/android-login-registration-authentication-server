@@ -48,8 +48,6 @@ io.on('connection', function (socket) {
 	console.log(" User Not Online.. " + (usrdata.usr));
 	// var fid = getFirebaseId(idsnicks[data.usr]);
 	getFirebaseId((usrdata.usr),function(idtoken){
-		var eg=JSON.stringify(idtoken);
-		console.log("JSON IS : "+eg);
 		
 		var registrationToken = idtoken[0].fid;
 		
@@ -109,7 +107,6 @@ function getFirebaseId(email,callback){
         dbo.collection("firebases").find({email:email},{'fid' : true,'email':true}).toArray(function(err, result) {
         if (err){ throw err; console.log(err); }
             firerecords=result;
-		console.log(firerecords);
         callback(firerecords);
 	     db.close();
 	});
