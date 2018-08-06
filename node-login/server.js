@@ -47,18 +47,21 @@ io.on('connection', function (socket) {
    }else{
 	console.log(" User Not Online.. " + (usrdata.usr));
 	// var fid = getFirebaseId(idsnicks[data.usr]);
-	getFirebaseId((usrdata.usr),function(token){
-        	var registrationToken = token;
-		
+	getFirebaseId((usrdata.usr),function(idtoken){
+        	var registrationToken = idtoken;
+		console.log("firebase id : "+ idtoken)
 		// See documentation on defining a message payload.
-		var message = {
- 		 data: {
-  		  usr: usrdata.usr,
-  		  msg: usrdata.msg
-  		},
-  		token: registrationToken
+		var message={       
+    			notification: {
+   			 title: "Portugal vs. Denmark",
+   			 body: "5 to 1"
+    			 },
+     			   data: {
+    			score: '850',
+    			time: '2:45'
+     			},
+			token: registrationToken
 		};
-
 		// Send a message to the device corresponding to the provided
 		// registration token.
 		admin.messaging().send(message)
