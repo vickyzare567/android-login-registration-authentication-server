@@ -48,8 +48,19 @@ io.on('connection', function (socket) {
 	console.log(" User Not Online.. " + (usrdata.usr));
 	// var fid = getFirebaseId(idsnicks[data.usr]);
 	getFirebaseId((usrdata.usr),function(idtoken){
-        	var registrationToken = idtoken;
+		
 		console.log("firebase id : "+ idtoken)
+        	var result = JSON.stringify(idtoken[0])
+		result = result.replace(/(^\[)/, '');
+		result =  result.replace(/(\]$)/, '');
+		try {
+		  var resultObj = JSON.parse(result);
+		} catch (e) {
+		  console.log("Error, not a valid JSON string");
+		}
+		var registrationToken = resultObj["fid"];
+		
+		
 		// See documentation on defining a message payload.
 		var message={       
     			notification: {
