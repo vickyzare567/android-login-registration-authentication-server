@@ -56,7 +56,7 @@ io.on('connection', function (socket) {
 		// See documentation on defining a message payload.
 		var message={       
     			notification: {
-   			 title: "Portugal vs. Denmark",
+   			 title: (usrdata.usr+" : "+usrdata.mgs),
    			 body: "5 to 1"
     			 },
      			   data: {
