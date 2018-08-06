@@ -21,6 +21,15 @@ var idsnicks={};
 
 // connectDb();
 
+var admin = require("firebase-admin");
+
+var serviceAccount = require("chatapp-3ed5e-firebase-adminsdk-uzpjg-bd25a8276c.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://chatapp-3ed5e.firebaseio.com"
+});
+
+
 io.on('connection', function (socket) {
 
   socket.on('login', function  (nick) {
@@ -31,17 +40,38 @@ io.on('connection', function (socket) {
     io.emit('userlist', {hello: users});
   })
 
-  socket.on('send', function  (data) {
-    console.log(data);
-    if (io.sockets.connected[idsnicks[data.usr]]!==undefined) {
-    io.sockets.connected[idsnicks[data.usr]].emit('sendmsg', {msg:data.msg, usr:socket.nick});
+  socket.on('send', function  (usrdata) {
+    console.log(usrdata);
+    if (io.sockets.connected[idsnicks[usrdata.usr]]!==undefined) {
+    io.sockets.connected[idsnicks[usrdata.usr]].emit('sendmsg', {msg:usrdata.msg, usr:socket.nick});
    }else{
-	console.log(" User Not Online.. " + (data.usr));
+	console.log(" User Not Online.. " + (usrdata.usr));
 	// var fid = getFirebaseId(idsnicks[data.usr]);
-	getFirebaseId((data.usr),function(data){
-        var fid = data;
-            console.log("data here :- ",fid);
-    });
+	getFirebaseId((usrdata.usr),function(token){
+        	var registrationToken = token;
+		
+		// See documentation on defining a message payload.
+		var message = {
+ 		 data: {
+  		  usr: usrdata.usr,
+  		  msg: usrdata.msg
+  		},
+  		token: registrationToken
+		};
+
+		// Send a message to the device corresponding to the provided
+		// registration token.
+		admin.messaging().send(message)
+		  .then((response) => {
+  		  // Response is a message ID string.
+  		  console.log('Successfully sent message:', response);
+  		})
+  		.catch((error) => {
+  		  console.log('Error sending message:', error);
+ 		 });
+	
+
+	});
    }
   })
 
