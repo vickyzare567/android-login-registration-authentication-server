@@ -22,7 +22,7 @@ exports.updatefirebaseId = (fid, did, email) =>
 		.catch(err => {
 
 			if (err.code == 11000) {
-						
+				
 				reject({ status: 409, message: 'Fire Id Already Registered !' });
 
 			} else {
