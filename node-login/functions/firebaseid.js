@@ -11,8 +11,8 @@ exports.updatefirebaseId = (fid, did, email) =>
 		user.find({ email: email })
 	
 		.then(users => {
-				user.did = did;
-				user.fid = fid;
+				user.device_id = did;
+				user.firebase_id = fid;
 				user.save();				
 		})
 
