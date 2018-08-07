@@ -2,7 +2,7 @@
 'use strict';
 
 const user = require('../models/user');
-var records[];
+var records = [];
 
 exports.getAllContacts = email => 
 	
