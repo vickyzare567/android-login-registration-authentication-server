@@ -8,6 +8,8 @@ const login = require('./functions/login');
 const profile = require('./functions/profile');
 const password = require('./functions/password');
 const fireid = require('./functions/firebaseid');
+const allcontacts = require('./functions/allcontacts');
+
 
 const config = require('./config/config.json');
 
@@ -107,7 +109,17 @@ module.exports = router => {
 		}
 	});
 	
-	
+	router.get('/users/allcontacts/:id', (req,res) => {
+		
+		if(checkToken(req)) {
+			
+			allcontacts.getAllContacts(req.params.id)
+			.then(result => res.json(result))
+			.catch(err => res.status(err.status).json({messae : err.message}));
+		}else{
+			res.status(401).json({message: 'Invalid Token !' });	
+		}
+	});
 	
 	
 	
