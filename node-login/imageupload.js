@@ -23,3 +23,5 @@ app.post('/upload', function(req, res) {
   });
 });
 
+app.listen(port);
+console.log(`App Runs on ${port}`);
