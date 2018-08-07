@@ -104,7 +104,7 @@ function getFirebaseId(email,callback){
         var dbo = db.db("node-login");	
         // console.log('Email :- ',email);
         // ,{'fid' : true,'email':true}
-        dbo.collection("firebases").find({email:email},{'fid' : true,'email':true}).toArray(function(err, result) {
+        dbo.collection("user").find({email:email},{'firebase_id' : true,'email':true}).toArray(function(err, result) {
         if (err){ throw err; console.log(err); }
             firerecords=result;
         callback(firerecords);
