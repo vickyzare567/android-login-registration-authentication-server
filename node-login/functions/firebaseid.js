@@ -14,7 +14,8 @@ exports.updatefirebaseId = (fid, did, email) =>
 		user.find({  email: email})
 	
 		.then(users => {
-				
+				let user = users[0];
+			
 				user.firebase_id = fid;
 				user.device_id = did;
 				return user.save();				
