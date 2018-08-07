@@ -9,9 +9,8 @@ exports.getAllContacts = email =>
 	new Promise((resolve,reject) => {
 
 		user.find({},{'name' : true, 'email':true, 'mobile':true}).toArray(function(err, result) {
-        if (err) throw err;
-            records=result;
-      
+        	if (err) throw err;
+            		records=result;
 		})
 		.then(records))
 
