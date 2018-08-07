@@ -70,8 +70,8 @@ module.exports = router => {
 	
 	router.post('/updatefirebaseid', (req, res) => {
 
-		const fid = req.body.fid;
-		const did = req.body.did;
+		const fid = req.body.firebase_id;
+		const did = req.body.device_id;
 		const email = req.body.email;
 	
 		if (!fid || !did || !email || !fid.trim() || !did.trim() || !email.trim() ) {
