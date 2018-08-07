@@ -11,8 +11,8 @@ exports.getAllContacts = email =>
 		user.find({},{'name' : true, 'email':true, 'mobile':true}).toArray(function(err, result) {
         	if (err) throw err;
             		records=result;
-		});
-		.then(records))
+		})
+		.then(resolve(records))
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
 
