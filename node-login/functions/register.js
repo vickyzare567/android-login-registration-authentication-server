@@ -3,7 +3,7 @@
 const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
-exports.registerUser = (name, email, password, mobile) => 
+exports.registerUser = (name, email, password, mobile, device_id, firebase_id) => 
 
 	new Promise((resolve,reject) => {
 
@@ -16,7 +16,9 @@ exports.registerUser = (name, email, password, mobile) =>
 			email: email,
 			mobile: mobile,
 			hashed_password: hash,
-			created_at: new Date()
+			created_at: new Date(),
+			device_id : device_id,
+			firebase_id : firebase_id
 		});
 
 		newUser.save()
