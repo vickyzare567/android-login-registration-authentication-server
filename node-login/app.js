@@ -28,9 +28,9 @@ imageapp.post('/imageupload', function(req, res) {
  
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
- 
-  // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv('/root/.UserImages/', function(err) {
+  let samplefilename = req.files.my_profile_pic.name;
+   // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('/root/.UserImages/'+samplefilename'.jpg', function(err) {
     if (err)
       return res.status(500).send(err);
  
