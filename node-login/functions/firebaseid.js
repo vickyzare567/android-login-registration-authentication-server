@@ -1,33 +1,23 @@
 
 'use strict';
 
-const firebase = require('../models/firebase');
+const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 exports.updatefirebaseId = (fid, did, email) => 
 
 	new Promise((resolve,reject) => {
 
+		user.find({ email: email })
+	
+		.then(users => {
+				user.did = did;
+				user.fid = fid;
+				user.save();				
+		})
 
-		const newFireid = new firebase({
-			fid: fid,
-			did: did,
-			email: email
-		});
+		.then(user => resolve({ status: 200, message: 'FireBase Id  Updated Sucessfully !' }))
 
-		newFireid.save()
+		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
 
-		.then(() => resolve({ status: 201, message: 'Fire Id Registered Sucessfully !' }))
-
-		.catch(err => {
-
-			if (err.code == 11000) {
-				
-				reject({ status: 409, message: 'Fire Id Already Registered !' });
-
-			} else {
-
-				reject({ status: 500, message: 'Internal Server Error !' });
-			}
-		});
 	});
