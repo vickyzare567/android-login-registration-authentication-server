@@ -12,7 +12,7 @@ exports.getAllContacts = email =>
         	if (err) throw err;
             		records=JSON.stringify(result);
 		})
-		.then(users => resolve(users[]))
+		.then(users => resolve(users))
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
 
