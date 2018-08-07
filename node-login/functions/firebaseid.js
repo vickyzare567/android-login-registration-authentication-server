@@ -17,7 +17,7 @@ exports.updatefirebaseId = (fid, did, email) =>
 				
 				user.firebase_id = fid;
 				user.device_id = did;
-				user.save();				
+				return user.save();				
 		})
 
 		.then(user => resolve({ status: 200, message: 'FireBase Id  Updated Sucessfully !' }))
