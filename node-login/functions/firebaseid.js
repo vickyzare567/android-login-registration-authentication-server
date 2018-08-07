@@ -6,10 +6,10 @@ const bcrypt = require('bcryptjs');
 
 exports.updatefirebaseId = (fid, did, email) => 
 
-	console.log(fid +" "+ did +" "+email );
+	console.log(fid +" "+ did +" " +email );
 	new Promise((resolve,reject) => {
 
-		user.find({ email: email })
+		user.find({ email : email })
 	
 		.then(users => {
 				
