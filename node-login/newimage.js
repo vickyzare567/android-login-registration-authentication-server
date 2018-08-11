@@ -21,7 +21,7 @@ const upload = multer({
 
         callback(null, true);
     }
-}).single('image')
+}).single('imageabc')
 
 router.post('/images/upload', (req, res) => {
 
@@ -32,7 +32,7 @@ router.post('/images/upload', (req, res) => {
             res.status(400).json({message: err.message})
 
         } else {
-	    console.log(req.filename+' '+req.file.filename)
+	    console.log(' '+req.file.filename)
             let path = `/images/${req.file.filename}`
             res.status(200).json({message: 'Image Uploaded Successfully !', path: path})
         }
