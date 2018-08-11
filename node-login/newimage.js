@@ -23,7 +23,7 @@ const port 	   = process.env.PORT || 7769;
       if (fileObj[file.mimetype] == undefined) {
         cb(new Error("file format not valid"));
       } else {
-        cb(null, req.body.filename + '-' + Date.now() + fileObj[file.mimetype])
+        cb(null, req.body.filename+ fileObj[file.mimetype])
       }
     }
   })
