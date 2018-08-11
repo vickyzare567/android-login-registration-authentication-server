@@ -18,13 +18,13 @@ const upload = multer({
 
             return callback(new Error('Only Images are allowed !'), false)
         }
-
+	console.log(req.body.filename)
         callback(null, true);
     }
 }).single('image')
 
 router.post('/images/upload', (req, res) => {
-	console.log(req);
+
     upload(req, res, function (err) {
 	
         if (err) {
