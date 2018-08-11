@@ -18,7 +18,6 @@ const upload = multer({
 
             return callback(new Error('Only Images are allowed !'), false)
         }
-	console.log(req.body.filename)
         callback(null, true);
     }
 }).single('image')
@@ -32,8 +31,8 @@ router.post('/images/upload', (req, res) => {
             res.status(400).json({message: err.message})
 
         } else {
-	    console.log(' '+req.body.filename)
             let path = `/images/${req.file.filename}`
+	    
             res.status(200).json({message: 'Image Uploaded Successfully !', path: path})
         }
     })
