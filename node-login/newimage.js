@@ -32,7 +32,7 @@ router.post('/images/upload', (req, res) => {
 
         } else {
             let path = `/images/${req.file.filename}`
-	    
+	    console.log(req.body.filename);
             res.status(200).json({message: 'Image Uploaded Successfully !', path: path})
         }
     })
