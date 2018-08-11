@@ -9,21 +9,42 @@ const router = express.Router()
 
 const port 	   = process.env.PORT || 7769;
 
-const upload = multer({
-    dest:'images/', 
-    limits: {fileSize: 10000000, files: 1},
-    fileFilter:  (req, file, callback) => {
-    
-        if (!file.originalname.match(/\.(jpg|jpeg)$/)) {
-
-            return callback(new Error('Only Images are allowed !'), false)
-        }
-        callback(null, true);
+  var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'images/')
     },
-   filename: function (req, file, callback) {
-    	callback(null, req.body.filename + '.jpg');
-  }
-}).single('image')
+    filename: function (req, file, cb) {
+      console.log(file);
+      var fileObj = {
+        "image/png": ".png",
+        "image/jpeg": ".jpeg",
+        "image/jpg": ".jpg"
+      };
+      if (fileObj[file.mimetype] == undefined) {
+        cb(new Error("file format not valid"));
+      } else {
+        cb(null, req.body.filename + '-' + Date.now() + fileObj[file.mimetype])
+      }
+    }
+  })
+
+// const upload = multer({
+//     dest:'images/', 
+//     limits: {fileSize: 10000000, files: 1},
+//     fileFilter:  (req, file, callback) => {
+    
+//         if (!file.originalname.match(/\.(jpg|jpeg)$/)) {
+
+//             return callback(new Error('Only Images are allowed !'), false)
+//         }
+//         callback(null, true);
+//     },
+//    filename: function (req, file, callback) {
+//     	callback(null, req.body.filename + '.jpg');
+//   }
+// }).single('image')
+  
+  const upload = multer({storage: storage }).single('image')
 
 router.post('/images/upload', (req, res) => {
 
