@@ -1,36 +1,27 @@
 'use strict';
 
 const user = require('../models/user');
+const bcrypt = require('bcryptjs');
 
-exports.registerUser = (email, password, mobile, device_id, firebase_id) => 
+exports.storeNameStatus = (email, name, status) => 
+
+	
 
 	new Promise((resolve,reject) => {
+		
+		console.log(email +" "+ name +" " +status );
+		user.find({ email: email})
+	
+		.then(users => {
+				let user = users[0];
+			
+				user.name = name;
+				user.status = status;
+				return user.save();				
+		})
 
-  	    const salt = bcrypt.genSaltSync(10);
-	    	const hash = bcrypt.hashSync(password, salt);
+		.then(user => resolve({ status: 200, message: 'FireBase Id  Updated Sucessfully !' }))
 
-		    const newUser = new user({
-		   	email: email,
-			  mobile: mobile,
-			  hashed_password: hash,
-			  created_at: new Date(),
-			  device_id : device_id,
-			  firebase_id : firebase_id
-		});
+		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
 
-		newUser.save()
-
-		.then(() => resolve({ status: 201, message: 'User Registered Sucessfully !' }))
-
-		.catch(err => {
-
-		  	if (err.code == 11000) {
-						
-			  	reject({ status: 409, message: 'User Already Registered !' });
-
-			  } else {
-
-				  reject({ status: 500, message: 'Internal Server Error !' });
-			  }
-		});
 	});
