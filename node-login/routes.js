@@ -43,19 +43,18 @@ module.exports = router => {
 
 	router.post('/users', (req, res) => {
 
-		const name = req.body.name;
 		const email = req.body.email;
 		const password = req.body.password;
 		const mobile = req.body.mobile;
 		const device_id = req.body.device_id;
 		const firebase_id = req.body.firebase_id;
-		if (!name || !email || !password || !mobile || !device_id || !firebase_id || !name.trim() || !email.trim() || !password.trim() || !mobile.trim() || !device_id.trim() || !firebase_id.trim()) {
+		if (!email || !password || !mobile || !device_id || !firebase_id || !email.trim() || !password.trim() || !mobile.trim() || !device_id.trim() || !firebase_id.trim()) {
 
 			res.status(400).json({message: 'Invalid Request !'});
 
 		} else {
 
-			register.registerUser(name, email, password, mobile, device_id, firebase_id)
+			register.registerUser(email, password, mobile, device_id, firebase_id)
 
 			.then(result => {
 
