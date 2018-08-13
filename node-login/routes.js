@@ -9,7 +9,7 @@ const profile = require('./functions/profile');
 const password = require('./functions/password');
 const fireid = require('./functions/firebaseid');
 const allcontacts = require('./functions/allcontacts');
-
+const namestatus = require('./functions/namestatus');
 
 const config = require('./config/config.json');
 
@@ -69,26 +69,63 @@ module.exports = router => {
 	
 	router.post('/updatefirebaseid', (req, res) => {
 
-		const fid = req.body.firebase_id;
-		const did = req.body.device_id;
-		const email = req.body.email;
-	
-		if (!fid || !did || !email || !fid.trim() || !did.trim() || !email.trim() ) {
+		if (checkToken(req)) {
+			const fid = req.body.firebase_id;
+			const did = req.body.device_id;
+			const email = req.body.email;
+		
+			if (!fid || !did || !email || !fid.trim() || !did.trim() || !email.trim() ) {
 
-			res.status(400).json({message: 'Invalid Request !'});
+				res.status(400).json({message: 'Invalid Request !'});
 
-		} else {
+			} else {
 
-			fireid.updatefirebaseId(fid, did, email)
+				fireid.updatefirebaseId(fid, did, email)
 
-			.then(result => {
+				.then(result => {
 
-				res.setHeader('Location', '/fireid/'+email);
-				res.status(result.status).json({ message: result.message })
-			})
+					res.setHeader('Location', '/fireid/'+email);
+					res.status(result.status).json({ message: result.message })
+				})
 
-			.catch(err => res.status(err.status).json({ message: err.message }));
+				.catch(err => res.status(err.status).json({ message: err.message }));
+			}
+		}else {
+
+			res.status(401).json({ message: 'Invalid Token !' });
 		}
+	});
+	
+	router.post('/storenamestatus', (req, res) => {
+
+	
+		if (checkToken(req)) {
+			
+			const email = req.body.email;
+			const name = req.body.name;
+			const status = req.body.status;
+			
+			if (!email || !name || !status || !email.trim() || !name.trim() || !status.trim() ) {
+
+				res.status(400).json({message: 'Invalid Request !'});
+
+			} else {
+
+				namestatus.storenamestatus(email, name, status)
+
+				.then(result => {
+
+					res.setHeader('Location', '/storenamestatus/'+email);
+					res.status(result.status).json({ message: result.message })
+				})
+
+				.catch(err => res.status(err.status).json({ message: err.message }));
+			}
+		}else {
+
+			res.status(401).json({ message: 'Invalid Token !' });
+		}
+		
 	});
 	
 
