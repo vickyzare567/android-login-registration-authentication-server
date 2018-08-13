@@ -69,7 +69,7 @@ module.exports = router => {
 	
 	router.post('/updatefirebaseid', (req, res) => {
 
-		if (checkToken(req)) {
+		
 			const fid = req.body.firebase_id;
 			const did = req.body.device_id;
 			const email = req.body.email;
@@ -90,10 +90,6 @@ module.exports = router => {
 
 				.catch(err => res.status(err.status).json({ message: err.message }));
 			}
-		}else {
-
-			res.status(401).json({ message: 'Invalid Token !' });
-		}
 	});
 	
 	router.post('/storenamestatus', (req, res) => {
