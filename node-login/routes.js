@@ -94,9 +94,6 @@ module.exports = router => {
 	
 	router.post('/storenamestatus', (req, res) => {
 
-	
-		if (checkToken(req)) {
-			
 			const email = req.body.email;
 			const name = req.body.name;
 			const status = req.body.status;
@@ -117,10 +114,6 @@ module.exports = router => {
 
 				.catch(err => res.status(err.status).json({ message: err.message }));
 			}
-		}else {
-
-			res.status(401).json({ message: 'Invalid Token !' });
-		}
 		
 	});
 	
