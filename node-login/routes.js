@@ -31,7 +31,7 @@ module.exports = router => {
 
 			.then(result => {
 
-				const token = jwt.sign(result, config.secret, { expiresIn: 1440 });
+				const token = jwt.sign(result, config.secret, { });
 			
 				res.status(result.status).json({ message: result.message, token: token });
 
