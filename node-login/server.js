@@ -91,13 +91,14 @@ io.on('connection', function (socket) {
   })
 
   socket.on('disconnect', function () {
-      console.log('disc');
-     users.splice( users.indexOf(socket.nick), 1 );
-     delete idsnicks[socket.nick];
-    io.emit('discon', {usr:socket.nick, list:users});
+     	setOfflinestatus((idsnicks[socket.nick]), function(resultof){
+	});
+	console.log('disc');
+     	users.splice( users.indexOf(socket.nick), 1 );
+     	delete idsnicks[socket.nick];
+    	io.emit('discon', {usr:socket.nick, list:users});
 
-
-      });
+      	});
 
   });
 
