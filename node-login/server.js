@@ -91,7 +91,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('disconnect', function () {
-     	setOfflinestatus((idsnicks[socket.nick]), function(resultof){
+     	setOfflineStatus((idsnicks[socket.nick]), function(resultof){
 	});
 	console.log('disc');
      	users.splice( users.indexOf(socket.nick), 1 );
