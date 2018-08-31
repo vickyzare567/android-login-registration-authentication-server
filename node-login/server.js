@@ -35,7 +35,6 @@ io.on('connection', function (socket) {
 
   socket.on('login', function  (nick) {
 	setOnlineStatus((nick), function(resultof){
-		console.log(resultof);
 	});  
     	users.push(nick);
     	socket.nick=nick;
@@ -126,6 +125,23 @@ function setOnlineStatus(email,callback){
   		var dbo = db.db("node-login");
   		var myquery = { email : email };
   		var newvalues = { $set: {online_status:"ONLINE" } };
+  		dbo.collection("users").updateOne(myquery, newvalues, function(err, res) {
+    			if (err) throw err;
+			online_status_flag = res;
+    			console.log("Status Updated Successfull");
+			callback(online_status_flag);
+    			db.close();
+  		});
+	});	
+}
+
+function setOfflineStatus(email,callback){
+		
+	MongoClient.connect(url, function(err, db) {
+  	if (err) throw err;
+  		var dbo = db.db("node-login");
+  		var myquery = { email : email };
+  		var newvalues = { $set: {online_status:"OFFLINE" } };
   		dbo.collection("users").updateOne(myquery, newvalues, function(err, res) {
     			if (err) throw err;
 			online_status_flag = res;
