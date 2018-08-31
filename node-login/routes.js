@@ -17,6 +17,27 @@ const namestatus = require('./functions/namestatus');
 
 const config = require('./config/config.json');
 
+var storage = multer.diskStorage({
+    		destination: function (req, file, cb) {
+     		 cb(null, 'images/')
+   		 },
+   	 	filename: function (req, file, cb) {
+      			console.log(file);
+     			 var fileObj = {
+      			 "image/png": ".png",
+       			 "image/jpeg": ".jpeg",
+       			 "image/jpg": ".jpg"
+      		};
+      		if (fileObj[file.mimetype] == undefined) {
+       			 cb(new Error("file format not valid"));
+     		 } else {
+      			 cb(null, req.body.filename+ fileObj[file.mimetype])
+      		}
+    		}
+ })
+const upload = multer({storage: storage }).single('image');
+
+
 module.exports = router => {
 
 	router.get('/', (req, res) => res.end('Welcome to Learn2Crack !'));
@@ -248,4 +269,6 @@ module.exports = router => {
 			return false;
 		}
 	}
+	
+
 }
