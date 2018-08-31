@@ -49,7 +49,7 @@ io.on('connection', function (socket) {
 	// var fid = getFirebaseId(idsnicks[data.usr]);
 	getFirebaseId((usrdata.usr),function(idtoken){
 		
-		var registrationToken = idtoken[0].fid;
+		var registrationToken = idtoken[0].firebase_id;
 		
 		console.log(" fid is : "+ registrationToken);
 		
