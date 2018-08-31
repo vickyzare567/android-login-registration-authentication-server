@@ -120,21 +120,18 @@ function getFirebaseId(email,callback){
 }
 
 function setOnlineStatus(email,callback){
+		
 	MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("node-login");	
-        dbo.collection("users").update({email:email},{$set:{online_status:'ONLINE'} , function(err, result) {
-         	if (err) {
-             		console.log('Error Updating User Online Status: ' + err);
-             		//res.send({'error':'An error has occurred'});
-         	} else {
-             		console.log('' + result + ' User Online Status Updated');
-             		//res.send(user);
+  	if (err) throw err;
+  		var dbo = db.db("node-login");
+  		var myquery = { email : email };
+  		var newvalues = { $set: {online_status:"ONLINE" } };
+  		dbo.collection("users").updateOne(myquery, newvalues, function(err, res) {
+    			if (err) throw err;
 			online_status_flag = result;
-         	}
-		callback(online_status_flag);
-		db.close();
-     	});
-						      
-    });
+    			console.log("Status Updated Successfull");
+			callback(online_status_flag);
+    			db.close();
+  		});
+	});	
 }
