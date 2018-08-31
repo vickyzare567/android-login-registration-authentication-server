@@ -128,7 +128,7 @@ function setOnlineStatus(email,callback){
   		var newvalues = { $set: {online_status:"ONLINE" } };
   		dbo.collection("users").updateOne(myquery, newvalues, function(err, res) {
     			if (err) throw err;
-			online_status_flag = result;
+			online_status_flag = res;
     			console.log("Status Updated Successfull");
 			callback(online_status_flag);
     			db.close();
