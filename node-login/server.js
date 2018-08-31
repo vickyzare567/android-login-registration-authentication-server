@@ -91,9 +91,9 @@ io.on('connection', function (socket) {
   })
 
   socket.on('disconnect', function () {
-     	setOfflineStatus((idsnicks[socket.nick]), function(resultof){
+	console.log("User gone Offline : "+ socket.nick);
+     	setOfflineStatus((socket.nick), function(resultof){
 	});
-	console.log('disc');
      	users.splice( users.indexOf(socket.nick), 1 );
      	delete idsnicks[socket.nick];
     	io.emit('discon', {usr:socket.nick, list:users});
