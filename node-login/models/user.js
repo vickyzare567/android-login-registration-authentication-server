@@ -16,7 +16,8 @@ const userSchema = mongoose.Schema({
 	temp_password   	: String,
 	temp_password_time      : String,
 	device_id		: String,
-	firebase_id		: String
+	firebase_id		: String,
+	online_status		: String
 	
 });
 
