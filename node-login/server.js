@@ -7,6 +7,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/node-login";
 var data="";
 var firerecords;
+var online_status_flag;
 
 app.use(express.static(__dirname + '/public'));
 
@@ -33,11 +34,14 @@ admin.initializeApp({
 io.on('connection', function (socket) {
 
   socket.on('login', function  (nick) {
-    users.push(nick);
-    socket.nick=nick;
-    console.log(socket.nick);
-    idsnicks[nick]=socket.id;
-    io.emit('userlist', {hello: users});
+	setOnlineStatus((nick), function(resultof){
+		console.log(resultof);
+	});  
+    	users.push(nick);
+    	socket.nick=nick;
+    	console.log(socket.nick);
+    	idsnicks[nick]=socket.id;
+    	io.emit('userlist', {hello: users});
   })
 
   socket.on('send', function  (usrdata) {
@@ -107,11 +111,30 @@ function getFirebaseId(email,callback){
         dbo.collection("users").find({email:email},{'firebase_id' : true,'email':true}).toArray(function(err, result) {
         if (err){ throw err; console.log(err); }
             firerecords=result;
-		console.log(result);
-        callback(firerecords);
-	     db.close();
+        	callback(firerecords);
+	     	db.close();
 	});
     });
     // console.log('sending return ',firerecords);
 	// return firerecords;
+}
+
+function setOnlineStatus(email,callback){
+	MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("node-login");	
+        dbo.collection("users").update({email:email},{$set:{online_status:'ONLINE'} , function(err, result) {
+         	if (err) {
+             		console.log('Error Updating User Online Status: ' + err);
+             		//res.send({'error':'An error has occurred'});
+         	} else {
+             		console.log('' + result + ' User Online Status Updated');
+             		//res.send(user);
+			online_status_flag = result;
+         	}
+		callback(online_status_flag);
+		db.close();
+     	});
+						      
+    });
 }
