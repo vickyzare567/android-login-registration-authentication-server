@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-const userSchema = mongoose.Schema({ 
+const contactSchema = mongoose.Schema({ 
 
 	contact_id 		: {type: String, unique: true},
 	user_email		: String,
@@ -20,4 +20,4 @@ userSchema.plugin(AutoIncrement, {inc_field: 'contact_id', disable_hooks: true})
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/node-login');
 
-module.exports = mongoose.model('user', userSchema); 
+module.exports = mongoose.model('contacts', contactSchema); 
