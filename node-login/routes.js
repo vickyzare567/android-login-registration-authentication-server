@@ -3,9 +3,6 @@
 const auth = require('basic-auth');
 const jwt = require('jsonwebtoken');
 
-const multer = require('multer')
-const fileType = require('file-type')
-const fs = require('fs')
 
 const register = require('./functions/register');
 const login = require('./functions/login');
@@ -17,25 +14,6 @@ const namestatus = require('./functions/namestatus');
 
 const config = require('./config/config.json');
 
-var storage = multer.diskStorage({
-    		destination: function (req, file, cb) {
-     		 cb(null, 'images/')
-   		 },
-   	 	filename: function (req, file, cb) {
-      			console.log(file);
-     			 var fileObj = {
-      			 "image/png": ".png",
-       			 "image/jpeg": ".jpeg",
-       			 "image/jpg": ".jpg"
-      		};
-      		if (fileObj[file.mimetype] == undefined) {
-       			 cb(new Error("file format not valid"));
-     		 } else {
-      			 cb(null, req.body.filename+ fileObj[file.mimetype])
-      		}
-    		}
- })
-const upload = multer({storage: storage }).single('image');
 
 
 module.exports = router => {
@@ -225,27 +203,6 @@ module.exports = router => {
 
 	
 	
-	router.get('/images/:imagename', (req, res) => {
-
-   		let imagename = req.params.imagename
-    		let imagepath = __dirname + "/images/" + imagename
-    		let image = fs.readFileSync(imagepath);
-    		let mime = fileType(image).mime
-		res.writeHead(200, {'Content-Type': mime })
-		res.end(image, 'binary')
-	})
-	
-	router.post('/images/upload', (req, res) => {
-    		upload(req, res, function (err) {
-     		if (err) {
-       		     res.status(400).json({message: err.message})
-      		} else {
-       		     	let path = `/images/${req.file.filename}`
-	  		console.log(req.body.filename);
-        		res.status(200).json({message: 'Image Uploaded Successfully !', path: path})
-        	}
-   		});
-	});
 	
 	function checkToken(req) {
 
