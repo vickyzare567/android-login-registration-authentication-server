@@ -7,21 +7,15 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const userSchema = mongoose.Schema({ 
 
-	name 			: String,
-	email			: {type: String, unique: true}, 
-	mobile			: String,
-	status			: String,
-	hashed_password 	: String,
-	created_at		: String,
-	temp_password   	: String,
-	temp_password_time      : String,
-	device_id		: String,
-	firebase_id		: String,
-	online_status		: String
-	
+	contact_id 		: {type: String, unique: true},
+	user_email		: String,
+	contact_email		: String,
+	user_mobile		: String,
+	contact_mobile		: String,
+	date		 	: String	
 });
 
-userSchema.plugin(AutoIncrement, {inc_field: 'user_id', disable_hooks: true});
+userSchema.plugin(AutoIncrement, {inc_field: 'contact_id', disable_hooks: true});
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/node-login');
