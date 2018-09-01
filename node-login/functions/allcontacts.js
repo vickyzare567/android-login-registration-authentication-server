@@ -8,7 +8,7 @@ exports.getAllContacts = email =>
 	
 	new Promise((resolve,reject) => {
 
-		user.find({email: {$ne : email} , online_status : "ONLINE"},{'name' : true, 'email':true, 'mobile':true})
+		user.find({email: {$ne : email} },{'name' : true, 'email':true, 'mobile':true , status : true})
 	
 		.then(records => resolve(records))
 
