@@ -50,9 +50,9 @@ io.on('connection', function (socket) {
     if (io.sockets.connected[idsnicks[usrdata.usr]]!==undefined) {
     	io.sockets.connected[idsnicks[usrdata.usr]].emit('sendmsg', {msg:usrdata.msg, usr:socket.nick});
     }else{
-	console.log(socket.nick + " User Not Online.. " + (usrdata.usr));
+	console.log(usrdata.from_usr + " User Not Online.. " + (usrdata.to_usr));
 	
-	saveMessage.save(socket.nick,usrdata.usr,usrdata.msg)
+	saveMessage.save(usrdata.from_usr,usrdata.to_usr,usrdata.msg)
 	.then(result => {
 		console.log(" "+result);
 	})
@@ -64,10 +64,10 @@ io.on('connection', function (socket) {
 		// See documentation on defining a message payload.
 		var message={       
     			notification: {
-   			 title: usrdata.usr+" : "+usrdata.msg,
+   			 title: usrdata.to_usr+" : "+usrdata.msg,
    			 body: " "
     			 },
-     			   data: {
+     			data: {
     			score: '850',
     			time: '2:45'
      			},
@@ -109,8 +109,6 @@ function getFirebaseId(email,callback){
 	MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("node-login");	
-        // console.log('Email :- ',email);
-        // ,{'fid' : true,'email':true}
         dbo.collection("users").find({email:email},{'firebase_id' : true,'email':true}).toArray(function(err, result) {
         if (err){ throw err; console.log(err); }
             firerecords=result;
@@ -118,8 +116,6 @@ function getFirebaseId(email,callback){
 	     	db.close();
 	});
     });
-    // console.log('sending return ',firerecords);
-	// return firerecords;
 }
 
 function setOnlineStatus(email,callback){
