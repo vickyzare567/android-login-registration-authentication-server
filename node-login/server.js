@@ -48,7 +48,7 @@ io.on('connection', function (socket) {
   socket.on('send', function  (usrdata) {
     console.log(usrdata);
     if (io.sockets.connected[idsnicks[usrdata.to_usr]]!==undefined) {
-    	io.sockets.connected[idsnicks[usrdata.to_usr]].emit('sendmsg', {msg:usrdata.msg, from_usr:socket.nick});
+    	io.sockets.connected[idsnicks[usrdata.to_usr]].emit('sendmsg', {msg:usrdata.msg, from_usr:usrdata.from_usr});
     }else{
 	console.log((usrdata.from_usr) + " User Not Online.. " + (usrdata.to_usr));
 	
