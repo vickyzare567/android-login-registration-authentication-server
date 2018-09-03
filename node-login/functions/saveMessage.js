@@ -1,5 +1,5 @@
 'use strict';
-const messageModel = require('./models/message');
+const messageModel = require('../models/message');
 
 exports.save = (from_email, to_email, message ) => 
 
