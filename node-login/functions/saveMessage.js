@@ -17,13 +17,13 @@ exports.save = (from_email, to_email, message ) =>
 
 		newMessage.save()
 
-		.then(() => resolve({ status: 201, message: 'User Registered Sucessfully !' }))
+		.then(() => resolve({ status: 201, message: 'Message Stored Sucessfully !' }))
 
 		.catch(err => {
 
 			if (err.code == 11000) {
 						
-				reject({ status: 409, message: 'User Already Registered !' });
+				reject({ status: 409, message: 'Message Already Stored !' });
 
 			} else {
 
