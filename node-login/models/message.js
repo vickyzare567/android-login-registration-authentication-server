@@ -18,7 +18,7 @@ const messageSchema = mongoose.Schema({
   	isdelivered     : String
 });
 
-userSchema.plugin(AutoIncrement, {inc_field: 'message_id', disable_hooks: true});
+messageSchema.plugin(AutoIncrement, {inc_field: 'message_id', disable_hooks: true});
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/node-login');
