@@ -8,8 +8,7 @@ var url = "mongodb://localhost:27017/node-login";
 var data="";
 var firerecords;
 var online_status_flag;
-
-const messageModel = require('./models/message');
+const saveMessage = require('./functions/saveMessage');
 
 
 app.use(express.static(__dirname + '/public'));
@@ -49,13 +48,15 @@ io.on('connection', function (socket) {
   socket.on('send', function  (usrdata) {
     console.log(usrdata);
     if (io.sockets.connected[idsnicks[usrdata.usr]]!==undefined) {
-    io.sockets.connected[idsnicks[usrdata.usr]].emit('sendmsg', {msg:usrdata.msg, usr:socket.nick});
-   }else{
+    	io.sockets.connected[idsnicks[usrdata.usr]].emit('sendmsg', {msg:usrdata.msg, usr:socket.nick});
+    }else{
 	console.log(socket.nick + " User Not Online.. " + (usrdata.usr));
 	
-	saveMessage(socket.nick,usrdata.usr, function(resultof){
-		console.log(resultof);
-	}); 
+	saveMessage.save(socket.nick,usrdata.usr,usrdata.msg);
+	.then(result => {
+		console.log(" "+result);
+	})
+	.catch(err => console.log(" "+ err));
 	   
 	getFirebaseId((usrdata.usr),function(idtoken){
 		var registrationToken = idtoken[0].firebase_id;
@@ -156,34 +157,3 @@ function setOfflineStatus(email,callback){
 }
 
 
-
-function saveMessage(from_email,to_email,message){
-	new Promise((resolve,reject) => {
-		const newMessage = new messageModel({
-			from_email : from_email,
-			to_email   : to_email,
-			message    : message,
-			time	   : new Date(),
-			has_image  : 'NONE',
-			image_url  : 'NONE',
-			isreaded   : 'FALSE',
-			isdelivered: 'FALSE'
-		});
-
-		newMessage.save()
-
-		.then(() => resolve({ status: 201, message: 'User Registered Sucessfully !' }))
-
-		.catch(err => {
-
-			if (err.code == 11000) {
-						
-				reject({ status: 409, message: 'User Already Registered !' });
-
-			} else {
-
-				reject({ status: 500, message: 'Internal Server Error !' });
-			}
-		});
-	});
-}
