@@ -157,7 +157,8 @@ function setOfflineStatus(email,callback){
 
 
 
-function saveMessage(from_email,to_email,message, callback){
+function saveMessage(from_email,to_email,message){
+	new Promise((resolve,reject) => {
 		const newMessage = new messageModel({
 			from_email : from_email,
 			to_email   : to_email,
@@ -171,17 +172,18 @@ function saveMessage(from_email,to_email,message, callback){
 
 		newMessage.save()
 
-		.then(() => callback({ status: 201, message: 'User Registered Sucessfully !' }))
+		.then(() => resolve({ status: 201, message: 'User Registered Sucessfully !' }))
 
 		.catch(err => {
 
 			if (err.code == 11000) {
 						
-				callback({ status: 409, message: 'User Already Registered !' });
+				reject({ status: 409, message: 'User Already Registered !' });
 
 			} else {
 
-				callback({ status: 500, message: 'Internal Server Error !' });
+				reject({ status: 500, message: 'Internal Server Error !' });
 			}
 		});
+	});
 }
