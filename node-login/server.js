@@ -9,7 +9,7 @@ var data="";
 var firerecords;
 var online_status_flag;
 
-const messageModel = require('models/message');
+const messageModel = require('./models/message');
 
 
 app.use(express.static(__dirname + '/public'));
