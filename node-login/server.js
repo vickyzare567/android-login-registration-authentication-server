@@ -50,7 +50,7 @@ io.on('connection', function (socket) {
     if (io.sockets.connected[idsnicks[usrdata.usr]]!==undefined) {
     	io.sockets.connected[idsnicks[usrdata.usr]].emit('sendmsg', {msg:usrdata.msg, usr:socket.nick});
     }else{
-	console.log(usrdata.from_usr + " User Not Online.. " + (usrdata.to_usr));
+	console.log((usrdata.from_usr) + " User Not Online.. " + (usrdata.to_usr));
 	
 	saveMessage.save(usrdata.from_usr,usrdata.to_usr,usrdata.msg)
 	.then(result => {
@@ -58,7 +58,7 @@ io.on('connection', function (socket) {
 	})
 	.catch(err => console.log(" "+ err));
 	   
-	getFirebaseId((usrdata.usr),function(idtoken){
+	getFirebaseId((usrdata.to_usr),function(idtoken){
 		var registrationToken = idtoken[0].firebase_id;
 		console.log(" fid is : "+ registrationToken);
 		// See documentation on defining a message payload.
