@@ -64,7 +64,7 @@ io.on('connection', function (socket) {
 		// See documentation on defining a message payload.
 		var message={       
     			notification: {
-   			 title: usrdata.to_usr+" : "+usrdata.msg,
+   			 title: usrdata.from_usr+" : "+usrdata.msg,
    			 body: " "
     			 },
      			data: {
