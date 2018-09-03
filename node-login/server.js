@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
     }else{
 	console.log(socket.nick + " User Not Online.. " + (usrdata.usr));
 	
-	saveMessage.save(socket.nick,usrdata.usr,usrdata.msg);
+	saveMessage.save(socket.nick,usrdata.usr,usrdata.msg)
 	.then(result => {
 		console.log(" "+result);
 	})
