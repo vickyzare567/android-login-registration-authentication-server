@@ -9,6 +9,9 @@ var data="";
 var firerecords;
 var online_status_flag;
 
+const messageModel = require('../models/message');
+
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/',function(req,res){
@@ -48,14 +51,15 @@ io.on('connection', function (socket) {
     if (io.sockets.connected[idsnicks[usrdata.usr]]!==undefined) {
     io.sockets.connected[idsnicks[usrdata.usr]].emit('sendmsg', {msg:usrdata.msg, usr:socket.nick});
    }else{
-	console.log(" User Not Online.. " + (usrdata.usr));
-	// var fid = getFirebaseId(idsnicks[data.usr]);
+	console.log(socket.nick + " User Not Online.. " + (usrdata.usr));
+	
+	saveMessage(socket.nick,usrdata.usr, function(resultof){
+		console.log(resultof);
+	}); 
+	   
 	getFirebaseId((usrdata.usr),function(idtoken){
-		
 		var registrationToken = idtoken[0].firebase_id;
-		
 		console.log(" fid is : "+ registrationToken);
-		
 		// See documentation on defining a message payload.
 		var message={       
     			notification: {
@@ -78,8 +82,6 @@ io.on('connection', function (socket) {
   		.catch((error) => {
   		  console.log('Error sending message:', error);
  		 });
-	
-
 	});
    }
   })
@@ -129,7 +131,7 @@ function setOnlineStatus(email,callback){
   		dbo.collection("users").updateOne(myquery, newvalues, function(err, res) {
     			if (err) throw err;
 			online_status_flag = res;
-    			console.log("Status Updated Successfull");
+    			console.log("Status Updated Successfully");
 			callback(online_status_flag);
     			db.close();
   		});
@@ -146,9 +148,40 @@ function setOfflineStatus(email,callback){
   		dbo.collection("users").updateOne(myquery, newvalues, function(err, res) {
     			if (err) throw err;
 			online_status_flag = res;
-    			console.log("Status Updated Successfull");
+    			console.log("Status Updated Successfully");
 			callback(online_status_flag);
     			db.close();
   		});
 	});	
+}
+
+
+
+function saveMessage(from_email,to_email,message, callback){
+		const newMessage = new messageModel({
+			from_email : from_email,
+			to_email   : to_email,
+			message    : message,
+			time	   : new Date(),
+			has_image  : 'NONE',
+			image_url  : 'NONE',
+			isreaded   : 'FALSE',
+			isdelivered: 'FALSE'
+		});
+
+		newMessage.save()
+
+		.then(() => callback({ status: 201, message: 'User Registered Sucessfully !' }))
+
+		.catch(err => {
+
+			if (err.code == 11000) {
+						
+				callback({ status: 409, message: 'User Already Registered !' });
+
+			} else {
+
+				callback({ status: 500, message: 'Internal Server Error !' });
+			}
+		});
 }
