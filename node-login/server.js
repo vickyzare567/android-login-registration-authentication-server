@@ -49,6 +49,32 @@ io.on('connection', function (socket) {
     console.log(usrdata);
     if (io.sockets.connected[idsnicks[usrdata.to_usr]]!==undefined) {
     	io.sockets.connected[idsnicks[usrdata.to_usr]].emit('sendmsg', {msg:usrdata.msg, from_usr:usrdata.from_usr});
+	getFirebaseId((usrdata.to_usr),function(idtoken){
+		var registrationToken = idtoken[0].firebase_id;
+		console.log(" fid is : "+ registrationToken);
+		// See documentation on defining a message payload.
+		var message={       
+    			notification: {
+   			 title: "{from : "+usrdata.from_usr+",to : "+usrdata.to_usr+", msg : "+usrdata.msg+"}",
+   			 body: " "
+    			 },
+     			data: {
+    			score: '850',
+    			time: '2:45'
+     			},
+			token: registrationToken
+		};
+		// Send a message to the device corresponding to the provided
+		// registration token.
+		admin.messaging().send(message)
+		  .then((response) => {
+  		  // Response is a message ID string.
+  		  console.log('Successfully sent message:', response);
+  		})
+  		.catch((error) => {
+  		  console.log('Error sending message:', error);
+ 		 });
+	});    
     }else{
 	console.log((usrdata.from_usr) + " User Not Online.. " + (usrdata.to_usr));
 	
