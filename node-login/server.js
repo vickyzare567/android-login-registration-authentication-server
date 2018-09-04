@@ -91,7 +91,8 @@ io.on('connection', function (socket) {
 		var message={       
     			notification: {
    			 title: "Gossips",
-   			 body: usrdata.from_usr+ " : "+usrdata.msg
+   			 body: usrdata.from_usr+ " : "+usrdata.msg,
+			 click_action : "OPEN_ACTIVITY_1"
     			 },
      			data: {
     			score: usrdata.from_usr,
