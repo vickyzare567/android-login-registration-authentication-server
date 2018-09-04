@@ -53,11 +53,14 @@ io.on('connection', function (socket) {
 		var registrationToken = idtoken[0].firebase_id;
 		console.log(" fid is : "+ registrationToken);
 		// See documentation on defining a message payload.
-		var message={       
-    			notification: {
-   			 title: "You got a new message !",
-   			 body: usrdata.from_usr+ " : "+usrdata.msg
-    			 },
+		var message={  
+			webpush : {
+				notification: {
+   			 	title: "Gossips",
+   			 	body: usrdata.from_usr+ " : "+usrdata.msg,
+			 	click_action : "OPEN_ACTIVITY_1"
+    			 }
+			},
      			data: {
     			score: usrdata.from_usr,
     			time: usrdata.msg
@@ -74,7 +77,7 @@ io.on('connection', function (socket) {
   		.catch((error) => {
   		  console.log('Error sending message:', error);
  		 });
-	});    
+	});   
     }else{
 	console.log((usrdata.from_usr) + " User Not Online.. " + (usrdata.to_usr));
 	
