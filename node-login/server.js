@@ -59,8 +59,8 @@ io.on('connection', function (socket) {
    			 body: usrdata.from_usr+ " : "+usrdata.msg
     			 },
      			data: {
-    			from: usrdata.from_usr,
-    			msg: usrdata.msg
+    			score: usrdata.from_usr,
+    			time: usrdata.msg
      			},
 			token: registrationToken
 		};
@@ -94,8 +94,8 @@ io.on('connection', function (socket) {
    			 body: " "
     			 },
      			data: {
-    			from: usrdata.from_usr,
-    			msg: usrdata.msg
+    			score: usrdata.from_usr,
+    			time: usrdata.msg
      			},
 			token: registrationToken
 		};
