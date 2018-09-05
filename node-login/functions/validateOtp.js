@@ -41,13 +41,12 @@ exports.resetPasswordInit = email =>
 
     			from: `"${config.name}" <${config.email}>`,
     			to: email,  
-    			subject: 'Reset Password Request ', 
+    			subject: 'One Time Password Varification Request ', 
     			html: `Hello ${user.name},<br><br>
-    			&nbsp;&nbsp;&nbsp;&nbsp; Your reset password token is <b>${random}</b>. 
-    			If you are viewing this mail from a Android Device click this <a href = "http://learn2crack/${random}">link</a>. 
+    			&nbsp;&nbsp;&nbsp;&nbsp; Your One Time Password is <b>${random}</b>.  
     			The token is valid for only 2 minutes.<br><br>
     			Thanks,<br>
-    			Learn2Crack.`
+    			ChatAppLicationPortal.`
     		
 			};
 
