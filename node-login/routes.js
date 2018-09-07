@@ -8,6 +8,7 @@ const register = require('./functions/register');
 const login = require('./functions/login');
 const profile = require('./functions/profile');
 const password = require('./functions/password');
+const validateotp = require('./functions/validateOtp');
 const fireid = require('./functions/firebaseid');
 const allcontacts = require('./functions/allcontacts');
 const namestatus = require('./functions/namestatus');
@@ -201,6 +202,28 @@ module.exports = router => {
 		}
 	});
 
+	router.post('/users/:id/otp', (req,res) => {
+
+		const email = req.params.id;
+		const token = req.body.token;
+
+		if (!token  || !token.trim() ) {
+
+			validateotp.initOtp(email)
+
+			.then(result => res.status(result.status).json({ message: result.message }))
+
+			.catch(err => res.status(err.status).json({ message: err.message }));
+
+		} else {
+
+			validateotp.finishOtp(email, token)
+
+			.then(result => res.status(result.status).json({ message: result.message }))
+
+			.catch(err => res.status(err.status).json({ message: err.message }));
+		}
+	});
 	
 	
 	
