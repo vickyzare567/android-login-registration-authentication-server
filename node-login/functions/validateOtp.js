@@ -5,7 +5,7 @@ const randomstring = require("randomstring");
 const config = require('../config/config.json');
 
 
-exports.resetPasswordInit = email =>
+exports.initOtp = email =>
 
 	new Promise((resolve, reject) => {
 
@@ -25,7 +25,7 @@ exports.resetPasswordInit = email =>
 
 				const salt = bcrypt.genSaltSync(10);
 				const hash = bcrypt.hashSync(random, salt);
-
+				
 				user.temp_password = hash;
 				user.temp_password_time = new Date();
 
@@ -68,7 +68,7 @@ exports.resetPasswordInit = email =>
 		});
 	});
 
-exports.resetPasswordFinish = (email, token, password) => 
+exports.finishOtp = (email, token ) => 
 
 	new Promise((resolve, reject) => {
 
@@ -82,7 +82,7 @@ exports.resetPasswordFinish = (email, token, password) =>
 			const seconds = Math.floor(diff / 1000);
 			console.log(`Seconds : ${seconds}`);
 
-			if (seconds < 120) {
+			if (seconds < 180) {
 
 				return user;
 
@@ -96,9 +96,6 @@ exports.resetPasswordFinish = (email, token, password) =>
 
 			if (bcrypt.compareSync(token, user.temp_password)) {
 
-				const salt = bcrypt.genSaltSync(10);
-				const hash = bcrypt.hashSync(password, salt);
-				user.hashed_password = hash;
 				user.temp_password = undefined;
 				user.temp_password_time = undefined;
 
