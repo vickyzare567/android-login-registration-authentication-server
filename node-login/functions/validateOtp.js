@@ -107,7 +107,7 @@ exports.finishOtp = (email, token ) =>
 			}
 		})
 
-		.then(user => resolve({ status: 200, message: 'Password Changed Sucessfully !' }))
+		.then(user => resolve({ status: 200, message: 'Otp Varified Sucessfully !' }))
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
 
