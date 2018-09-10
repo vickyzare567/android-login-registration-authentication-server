@@ -151,7 +151,7 @@ module.exports = router => {
 		}
 	});
 	
-	router.get('/users/allcontacts/:id', (req,res) => {
+	router.get('/users/allonlinecontacts/:id', (req,res) => {
 		
 		if(checkToken(req)) {
 			onlineContacts.getAllOnlineContacts(req.params.id)
