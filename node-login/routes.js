@@ -12,6 +12,7 @@ const validateotp = require('./functions/validateOtp');
 const fireid = require('./functions/firebaseid');
 const allcontacts = require('./functions/allcontacts');
 const namestatus = require('./functions/namestatus');
+const onlineContacts = require('./functions/onlineContacts');
 
 const config = require('./config/config.json');
 
@@ -150,7 +151,16 @@ module.exports = router => {
 		}
 	});
 	
-	
+	router.get('/users/allcontacts/:id', (req,res) => {
+		
+		if(checkToken(req)) {
+			onlineContacts.getAllOnlineContacts(req.params.id)
+			.then(result => res.json(result))
+			.catch(err => res.status(err.status).json({messae : err.message}));
+		}else{
+			res.status(401).json({message: 'Invalid Token !' });	
+		}
+	});
 	
 	router.put('/users/:id', (req,res) => {
 
