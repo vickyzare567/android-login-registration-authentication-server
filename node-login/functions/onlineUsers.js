@@ -3,7 +3,7 @@
 const user = require('../models/user');
 var records = [];
 
-exports.getAllContacts = email => 
+exports.getAllOnlineContacts = email => 
 	
 	new Promise((resolve,reject) => {
 
