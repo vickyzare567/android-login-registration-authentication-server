@@ -243,7 +243,6 @@ module.exports = router => {
 	
 	router.post('/users/upload', (req, res) => {
 		
-		console.log(req.file.filename);
    		 upload(req, res, function (err) {
 	
      		   if (err) {
