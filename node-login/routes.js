@@ -20,26 +20,8 @@ const onlineContacts = require('./functions/onlineContacts');
 const config = require('./config/config.json');
 
 
-  var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'images/')
-    },
-    filename: function (req, file, cb) {
-      console.log(file);
-      var fileObj = {
-        "image/png": ".png",
-        "image/jpeg": ".jpeg",
-        "image/jpg": ".jpg"
-      };
-      if (fileObj[file.mimetype] == undefined) {
-        cb(new Error("file format not valid"));
-      } else {
-        cb(null, req.body.filename+ fileObj[file.mimetype])
-      }
-    }
-  })
 
-  const upload = multer({storage: storage }).single('image')
+
   
 module.exports = router => {
 
@@ -285,6 +267,28 @@ module.exports = router => {
 		res.writeHead(200, {'Content-Type': mime })
 		res.end(image, 'binary')
 	})
+	
+	const upload = multer({storage: storage }).single('image')
+
+	  var storage = multer.diskStorage({
+	    destination: function (req, file, cb) {
+	      cb(null, 'images/')
+	    },
+	    filename: function (req, file, cb) {
+	      console.log(file);
+	      var fileObj = {
+		"image/png": ".png",
+		"image/jpeg": ".jpeg",
+		"image/jpg": ".jpg"
+	      };
+	      if (fileObj[file.mimetype] == undefined) {
+		cb(new Error("file format not valid"));
+	      } else {
+		cb(null, req.body.filename+ fileObj[file.mimetype])
+	      }
+	    }
+	  })
+	
 	
 	function checkToken(req) {
 
