@@ -3,9 +3,9 @@
 const auth = require('basic-auth');
 const jwt = require('jsonwebtoken');
 
-const multer = require('multer')
-const fileType = require('file-type')
-const fs = require('fs')
+const multer = require('multer');
+const fileType = require('file-type');
+const fs = require('fs');
 
 const register = require('./functions/register');
 const login = require('./functions/login');
@@ -242,7 +242,8 @@ module.exports = router => {
 	
 	
 	router.post('/images/upload', (req, res) => {
-
+		
+		console.log(req.file.filename);
    		 upload(req, res, function (err) {
 	
      		   if (err) {
