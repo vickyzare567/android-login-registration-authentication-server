@@ -125,6 +125,21 @@ io.on('connection', function (socket) {
   }
   })
 
+socket.on('sendImage', function  (imageData) {
+    console.log(imageData);
+    if (io.sockets.connected[idsnicks[imageData.to_usr]]!==undefined) {
+    	io.sockets.connected[idsnicks[imageData.to_usr]].emit('sendmsg', {msg:imageData.msg, from_usr:imageData.from_usr});
+		 if (imageData.image) {
+			//var img = new Image();
+			//img.src = 'data:image/jpeg;base64,' + imageData.buffer;
+			//ctx.drawImage(img, 0, 0);
+			io.sockets.connected[idsnicks[imageData.to_usr]].emit('ImageMessage', { image: true, from_user: imageData.from_user, to_user: imageData.to_user, buffer: imageData.bufffer });
+		  }
+    }else{
+	
+	}
+  })
+	
   socket.on('disconnect', function () {
 	console.log("User gone Offline : "+ socket.nick);
      	setOfflineStatus((socket.nick), function(resultof){
