@@ -128,7 +128,6 @@ io.on('connection', function (socket) {
 socket.on('sendImage', function  (imageData) {
     console.log(imageData.from_user);
     if (io.sockets.connected[idsnicks[imageData.to_usr]]!==undefined) {
-    	io.sockets.connected[idsnicks[imageData.to_usr]].emit('sendmsg', {msg:imageData.msg, from_usr:imageData.from_usr});
 		 if (imageData.image) {
 			//var img = new Image();
 			//img.src = 'data:image/jpeg;base64,' + imageData.buffer;
