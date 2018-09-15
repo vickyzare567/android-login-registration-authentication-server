@@ -126,16 +126,16 @@ io.on('connection', function (socket) {
   })
 
 socket.on('sendImage', function  (imageData) {
-    console.log(imageData.from_user);
-    //if (io.sockets.connected[idsnicks[imageData.to_user]]!==undefined) {
+    console.log('from : '+imageData.from_user+' to : '+imageData.to_user);
+    if (io.sockets.connected[idsnicks[imageData.to_user]]!==undefined) {
 		 	//var img = new Image();
 			//img.src = 'data:image/jpeg;base64,' + imageData.buffer;
 			//ctx.drawImage(img, 0, 0);
 			console.log("Emmiting now ... ");
 			io.sockets.connected[idsnicks[imageData.to_user]].emit('ImageMessage', { image: true, from_user: imageData.from_user, to_user: imageData.to_user, buffer: imageData.bufffer });
-    //}else{
+    }else{
 	
-	//}
+	}
   })
 	
   socket.on('disconnect', function () {
