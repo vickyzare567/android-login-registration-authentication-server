@@ -132,7 +132,7 @@ socket.on('sendImage', function  (imageData) {
 			//img.src = 'data:image/jpeg;base64,' + imageData.buffer;
 			//ctx.drawImage(img, 0, 0);
 			console.log("Emmiting now ... ");
-			io.sockets.connected[idsnicks[imageData.to_user]].emit('ImageMessage', { image: 'true', from_user: imageData.from_user, to_user: imageData.to_user, buffer: imageData.bufffer });
+			io.sockets.connected[idsnicks[imageData.to_user]].emit('ImageMessage', { image: 'true', from_user: imageData.from_user, to_user: imageData.to_user, buffer: imageData.buffer });
     }else{
 	
 	}
