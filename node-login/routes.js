@@ -272,6 +272,7 @@ module.exports = router => {
 
 	  var storage = multer.diskStorage({
 	    destination: function (req, file, cb) {
+		console.log('Inside destination..');
 	      cb(null, 'images/')
 	    },
 	    filename: function (req, file, cb) {
@@ -284,7 +285,7 @@ module.exports = router => {
 	      if (fileObj[file.mimetype] == undefined) {
 		cb(new Error("file format not valid"));
 	      } else {
-		cb(null, req.body.filename+ fileObj[file.mimetype])
+		cb(null, req.body.filename+ fileObj[file.mimetype]);
 	      }
 	    }
 	  })
