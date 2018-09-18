@@ -257,6 +257,8 @@ module.exports = router => {
     		})
 	})
 	
+
+	
 	router.get('/images/:imagename', (req, res) => {
 
    		 let imagename = req.params.imagename
@@ -268,8 +270,7 @@ module.exports = router => {
 		res.end(image, 'binary')
 	})
 	
-	const upload = multer({storage: storage }).single('image')
-
+	
 	  var storage = multer.diskStorage({
 	    destination: function (req, file, cb) {
 		console.log('Inside destination..');
@@ -290,6 +291,8 @@ module.exports = router => {
 	    }
 	  })
 	
+	  const upload = multer({storage: storage }).single('image')
+
 	
 	function checkToken(req) {
 
