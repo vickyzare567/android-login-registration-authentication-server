@@ -3,7 +3,7 @@
 const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
-exports.storenamestatus = (email, name, status) => 
+exports.storenamestatus = (email, name, status, locationlat, locationlong) => 
 
 	
 
@@ -17,6 +17,7 @@ exports.storenamestatus = (email, name, status) =>
 			
 				user.name = name;
 				user.status = status;
+				user.location = { "type": "Point", "coordinates": [ locationlat, locationlong] };
 				return user.save();				
 		})
 
