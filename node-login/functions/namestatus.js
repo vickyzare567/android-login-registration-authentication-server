@@ -17,7 +17,7 @@ exports.storenamestatus = (email, name, status, locationlat, locationlong) =>
 			
 				user.name = name;
 				user.status = status;
-				user.location = { type: "Point", coordinates: [ locationlong, locationlat ] };
+				user.loc = { type: "Point", coordinates: [ locationlong, locationlat ] };
 				return user.save();				
 		})
 
