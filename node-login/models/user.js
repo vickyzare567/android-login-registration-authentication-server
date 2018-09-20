@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.plugin(AutoIncrement, {inc_field: 'user_id', disable_hooks: true});
-userSchema.index({ 'loc': '2dsphere' });
+//userSchema.index({ 'loc': '2dsphere' });
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/node-login');
