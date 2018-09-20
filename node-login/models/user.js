@@ -17,10 +17,11 @@ const userSchema = mongoose.Schema({
 	temp_password_time      : String,
 	device_id		: String,
 	firebase_id		: String,
-	online_status		: String
-	
+	online_status		: String,
+	location		:  { type: { type: String }, coordinates: [] }
 });
 
+userSchema.index({ "location": "2dsphere" });
 userSchema.plugin(AutoIncrement, {inc_field: 'user_id', disable_hooks: true});
 
 mongoose.Promise = global.Promise;
