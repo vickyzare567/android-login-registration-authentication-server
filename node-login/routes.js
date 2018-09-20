@@ -109,8 +109,7 @@ module.exports = router => {
 			const status = req.body.status;
 			const locationlat = req.body.locationlat;
 			const locationlong = req.body.locationlong;
-			if (!email || !name || !status || !email.trim() || !name.trim() || !status.trim() ) {
-
+			if (!email || !name || !status || !locationlat || !locationlong || !email.trim() || !name.trim() || !status.trim() || !locationlat.trim() || !locationlong.trim()) {
 				res.status(400).json({message: 'Invalid Request !'});
 
 			} else {
