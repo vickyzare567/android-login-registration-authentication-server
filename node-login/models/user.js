@@ -18,11 +18,11 @@ const userSchema = mongoose.Schema({
 	device_id		: String,
 	firebase_id		: String,
 	online_status		: String,
-	location		:  { type: {type:String}, coordinates: []}
+	loc			:  { type: {type:String}, coordinates: [Number]}
 });
 
-userSchema.index({ 'location': '2dsphere' });
 userSchema.plugin(AutoIncrement, {inc_field: 'user_id', disable_hooks: true});
+userSchema.index({ 'loc': '2dsphere' });
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/node-login');
