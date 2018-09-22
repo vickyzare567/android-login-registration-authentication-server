@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
 	device_id		: String,
 	firebase_id		: String,
 	online_status		: String,
- 	loc			: { type: {type:String}, coordinates: [Number], index : true}
+ 	loc			: { type: {type:String}, coordinates: [Number]}
 });
 
 userSchema.index({'loc': '2dsphere'});
