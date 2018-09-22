@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
 	device_id		: String,
 	firebase_id		: String,
 	online_status		: String,
-	loc			:  { type: {type:String}, coordinates: [Number]}
+	loc			:  { type: {type:Point}, coordinates: [Number]}
 });
 
 userSchema.plugin(AutoIncrement, {inc_field: 'user_id', disable_hooks: true});
