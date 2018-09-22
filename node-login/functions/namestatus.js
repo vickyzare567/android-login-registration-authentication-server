@@ -23,8 +23,14 @@ exports.storenamestatus = (email, name, status, locationlat, locationlong) =>
 				return id;
 		})
 
-		.then(user => resolve({ status: 200, message: 'FireBase Id  Updated Sucessfully !' }))
+		.then(user => {
+			console.log(user);
+			resolve({ status: 200, message: 'FireBase Id  Updated Sucessfully !' });
+		})
 
-		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
+		.catch(err => {
+			console.log(err);
+			reject({ status: 500, message: 'Internal Server Error !' });
+		});
 
 	});
