@@ -72,10 +72,7 @@ module.exports = router => {
 				res.status(result.status).json({ message: result.message })
 			})
 
-			.catch({
-				console.log(err);
-				err => res.status(err.status).json({ message: err.message });
-			});
+			.catch(err => res.status(err.status).json({ message: err.message }));
 		}
 	});
 	
