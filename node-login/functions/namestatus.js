@@ -18,8 +18,9 @@ exports.storenamestatus = (email, name, status, locationlat, locationlong) =>
 				user.name = name;
 				user.status = status;
 				user.loc = { type: "Point", coordinates: [ locationlong, locationlat ] };
+				var id = user.save();	
 				user.index({'loc': '2dsphere'});
-				return user.save();				
+				return id;
 		})
 
 		.then(user => resolve({ status: 200, message: 'FireBase Id  Updated Sucessfully !' }))
