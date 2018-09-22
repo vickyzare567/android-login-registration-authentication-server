@@ -19,7 +19,6 @@ exports.storenamestatus = (email, name, status, locationlat, locationlong) =>
 				user.status = status;
 				user.loc = { type: "Point", coordinates: [ locationlong, locationlat ] };
 				var id = user.save();	
-				user.index({'loc': '2dsphere'});
 				return id;
 		})
 
