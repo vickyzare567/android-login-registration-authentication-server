@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
  	loc			: { type: {type:String}, coordinates: [Number]}
 });
 
-userSchema.index({'loc': '2dsphere'});
+userSchema.index({'loc': '2dsphere', disable_hooks: true});
 userSchema.plugin(AutoIncrement, {inc_field: 'user_id', disable_hooks: true});
 
 mongoose.Promise = global.Promise;
