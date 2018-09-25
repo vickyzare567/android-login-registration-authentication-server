@@ -7,24 +7,10 @@ exports.getMyNearbyPeoples = (email, locationlat, locationlong) =>
 
 	new Promise((resolve,reject) => {
 	
-		user.find({ email: email})
+		user.find({email: {$ne : email},  loc: { $geoWithin: { $centerSphere: [ [ 73.7188, 18.5971], 5/3963.2 ] } } },{'name' : true, 'email':true, 'mobile':true , status : true})
 	
-		.then(users => {
-				let user = users[0];
-			
-				user.loc = { type: "Point", coordinates: [ locationlong, locationlat ] };
-				var id = user.save();	
-				return id;
-		})
+		.then(records => resolve(records))
 
-		.then(user => {
-			console.log(user);
-			resolve({ status: 200, message: 'Location Updated Sucessfully !' });
-		})
-
-		.catch(err => {
-			console.log(err);
-			reject({ status: 500, message: 'Internal Server Error !' });
-		});
+		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
 
 	});
