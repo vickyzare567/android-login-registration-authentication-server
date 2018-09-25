@@ -17,6 +17,7 @@ const allcontacts = require('./functions/allcontacts');
 const namestatus = require('./functions/namestatus');
 const onlineContacts = require('./functions/onlineContacts');
 const updateLocation = require('./functions/updateLocation');
+const getMyNearby = require('./functions/getMyNearby');
 
 const config = require('./config/config.json');
 
@@ -154,6 +155,28 @@ module.exports = router => {
 		
 	});
 
+	
+	router.post('/getMyNearby/:id', (req, res) => {
+
+		if (checkToken(req)) {
+			const email = req.body.email;
+			const locationlat = req.body.locationlat;
+			const locationlong = req.body.locationlong;
+			if (!email  || !locationlat || !locationlong || !email.trim() || !locationlat.trim() || !locationlong.trim()) {
+				res.status(400).json({message: 'Invalid Request !'});
+
+			} else {
+				getMyNearby.getAllNearbyPeoples(email, locationlat, locationlong)
+				
+				.then(result => res.json(result))
+				.catch(err => res.status(err.status).json({ message: err.message }));
+			}
+		} else {
+			res.status(401).json({ message: 'Invalid Token !' });
+		}
+		
+	});
+	
 	router.get('/users/:id', (req,res) => {
 
 		if (checkToken(req)) {
