@@ -3,20 +3,15 @@
 const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
-exports.storenamestatus = (email, name, status, locationlat, locationlong) => 
-
-	
+exports.updateUserLocation = (email, locationlat, locationlong) => 
 
 	new Promise((resolve,reject) => {
-		
-		console.log(email +" "+ name +" " +status );
+	
 		user.find({ email: email})
 	
 		.then(users => {
 				let user = users[0];
 			
-				user.name = name;
-				user.status = status;
 				user.loc = { type: "Point", coordinates: [ locationlong, locationlat ] };
 				var id = user.save();	
 				return id;
@@ -24,7 +19,7 @@ exports.storenamestatus = (email, name, status, locationlat, locationlong) =>
 
 		.then(user => {
 			console.log(user);
-			resolve({ status: 200, message: 'FireBase Id  Updated Sucessfully !' });
+			resolve({ status: 200, message: 'Location Updated Sucessfully !' });
 		})
 
 		.catch(err => {
