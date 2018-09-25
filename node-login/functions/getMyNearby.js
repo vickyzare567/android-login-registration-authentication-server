@@ -7,7 +7,7 @@ exports.getMyNearbyPeoples = (email, locationlat, locationlong) =>
 
 	new Promise((resolve,reject) => {
 	
-		user.find({email: {$ne : email},  loc: { $geoWithin: { $centerSphere: [ [ 73.7188, 18.5971], 5/3963.2 ] } } },{'name' : true, 'email':true, 'mobile':true , status : true})
+		user.find({email: {$ne : email},  loc: { $geoWithin: { $centerSphere: [ [ locationlong, locationlat ], 5/3963.2 ] } } },{'name' : true, 'email':true, 'mobile':true , status : true})
 	
 		.then(records => resolve(records))
 
