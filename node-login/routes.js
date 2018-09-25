@@ -166,7 +166,7 @@ module.exports = router => {
 				res.status(400).json({message: 'Invalid Request !'});
 
 			} else {
-				getMyNearby.getAllNearbyPeoples(email, locationlat, locationlong)
+				getMyNearby.getMyNearbyPeoples(email, locationlat, locationlong)
 				
 				.then(result => res.json(result))
 				.catch(err => res.status(err.status).json({ message: err.message }));
