@@ -8,9 +8,11 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const friendslistSchema = mongoose.Schema({ 
 
-	  user_email 	          : String,
-	  with_contact_email    : String,
+	  user_email 	        : String,
+	  with_contact_email    : String,	
 	  time                  : String,
+	  request_status	: String,
+	  
     
 });
 
