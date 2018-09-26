@@ -1,13 +1,13 @@
 'use strict';
 
-const freindList = require('../models/freindList');
+const friendList = require('../models/freindList');
 var records = [];
 
 exports.createFriendRequest =(user_email, with_contact_email) => 
 	
 	new Promise((resolve,reject) => {
 
-		const  newFriend= new freindList({
+		const  newFriend= new friendList({
 			user_email: user_email,
 			with_contact_email: with_contact_email,
 			time: new Date(),
