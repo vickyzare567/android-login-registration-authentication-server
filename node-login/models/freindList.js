@@ -19,6 +19,6 @@ const friendlistSchema = mongoose.Schema({
 friendlistSchema.plugin(AutoIncrement, {inc_field: 'friends_id', disable_hooks: true});
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/node-login');
+mongoose.createConnection('mongodb://localhost:27017/node-login');
 
 module.exports = mongoose.model('freindList', friendlistSchema); 
