@@ -83,7 +83,7 @@ module.exports = router => {
 		if(checkToken(req)) {
 			const user_email = req.body.user_email;
 			const with_contact_email = req.body.with_contact_email;
-			if (!user_email || !with_contact_email || !user_email.trim() || !with_contact_email.trim() || ) {
+			if (!user_email || !with_contact_email || !user_email.trim() || !with_contact_email.trim() ) {
 				res.status(400).json({message: 'Invalid Request !'});
 			} else {
 
