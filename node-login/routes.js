@@ -19,6 +19,7 @@ const onlineContacts = require('./functions/onlineContacts');
 const updateLocation = require('./functions/updateLocation');
 const getMyNearby = require('./functions/getMyNearby');
 const friendRequest = require('./functions/friendRequest');
+const listFriendRequests = require('./functions/listFriendRequests');
 
 const config = require('./config/config.json');
 
@@ -92,6 +93,24 @@ module.exports = router => {
 					res.setHeader('Location', '/users/'+user_email);
 					res.status(result.status).json({ message: result.message })
 				})
+
+				.catch(err => res.status(err.status).json({ message: err.message }));
+			}
+		}else{
+			res.status(401).json({message: 'Invalid Token !' });	
+		}
+		
+	});
+	
+	router.post('/listFriendRequests/:id', (req, res) => {
+		if(checkToken(req)) {
+			const user_email = req.body.user_email;
+			if (!user_email || !user_email.trim()) {
+				res.status(400).json({message: 'Invalid Request !'});
+			} else {
+
+				listFriendRequests.getFriendRequestsList(user_email)
+				.then(result => res.json(result))
 
 				.catch(err => res.status(err.status).json({ message: err.message }));
 			}
