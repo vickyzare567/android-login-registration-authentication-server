@@ -1,13 +1,13 @@
 'use strict';
 
-const user = require('../models/user');
+const friendList = require('../models/freindList');
 var records = [];
 
 exports.getFriendRequestsList = user_email => 
 	
 	new Promise((resolve,reject) => {
 
-		user.find({email: {$ne : email} },{'name' : true, 'email':true, 'mobile':true , status : true})
+		friendList.find({user_email: user_email, request_status : 'UNAPPROVED' },{'user_email' : true, 'with_contact_email':true, 'time' : true })
 	
 		.then(records => resolve(records))
 
