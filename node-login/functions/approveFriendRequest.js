@@ -15,10 +15,10 @@ exports.approveRequest = (user_email,with_contact_email) =>
 				return id;
 		})
     
-    .then(friendList => {
+    		.then(friendList => {
 			resolve({ status: 200, message: 'Friend Request Approved Successfully !' });
 		})
 
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }))
 
-	});
+		});
