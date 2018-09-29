@@ -20,6 +20,7 @@ const updateLocation = require('./functions/updateLocation');
 const getMyNearby = require('./functions/getMyNearby');
 const friendRequest = require('./functions/friendRequest');
 const listFriendRequests = require('./functions/listFriendRequests');
+const approveFriendRequest = require('./functions/approveFriendRequest');
 
 const config = require('./config/config.json');
 
@@ -119,6 +120,28 @@ module.exports = router => {
 		}
 		
 	});
+	
+	router.post('/approveFriendRequest/:id', (req, res) => {
+		if(checkToken(req)) {
+			const user_email = req.body.user_email;
+			const with_contact_email = req.body.with_contact_email;
+			if (!user_email || !with_contact_email || !user_email.trim() || !with_contact_email.trim() ) {
+				res.status(400).json({message: 'Invalid Request !'});
+			} else {
+
+				approveFriendRequest.approveRequest(user_email,with_contact_email)
+				.then(result => {
+					res.setHeader('FriendRequestStatus', '/users/'+user_email);
+					res.status(result.status).json({ message: result.message })
+				})
+				.catch(err => res.status(err.status).json({ message: err.message }));
+			}
+		}else{
+			res.status(401).json({message: 'Invalid Token !' });	
+		}
+		
+	});
+	
 	
 	router.post('/updatefirebaseid', (req, res) => {
 
