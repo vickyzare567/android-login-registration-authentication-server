@@ -105,12 +105,12 @@ module.exports = router => {
 	
 	router.post('/listFriendRequests/:id', (req, res) => {
 		if(checkToken(req)) {
-			const user_email = req.body.user_email;
-			if (!user_email || !user_email.trim()) {
+			const with_contact_email = req.body.with_contact_email;
+			if (!with_contact_email || !with_contact_email.trim()) {
 				res.status(400).json({message: 'Invalid Request !'});
 			} else {
 
-				listFriendRequests.getFriendRequestsList(user_email)
+				listFriendRequests.getFriendRequestsList(with_contact_email)
 				.then(result => res.json(result))
 
 				.catch(err => res.status(err.status).json({ message: err.message }));
