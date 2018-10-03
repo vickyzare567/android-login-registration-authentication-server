@@ -20,6 +20,8 @@ const updateLocation = require('./functions/updateLocation');
 const getMyNearby = require('./functions/getMyNearby');
 const friendRequest = require('./functions/friendRequest');
 const listFriendRequests = require('./functions/listFriendRequests');
+const listPendingRequests = require('./functions/listPendingRequests');
+
 const approveFriendRequest = require('./functions/approveFriendRequest');
 
 const config = require('./config/config.json');
@@ -120,6 +122,25 @@ module.exports = router => {
 		}
 		
 	});
+	
+	router.post('/listPendingRequests/:id', (req, res) => {
+		if(checkToken(req)) {
+			const user_email = req.body.user_email;
+			if (!user_email || !user_email.trim()) {
+				res.status(400).json({message: 'Invalid Request !'});
+			} else {
+
+				listPendingRequests.getPendingRequestsList (user_email)
+				.then(result => res.json(result))
+
+				.catch(err => res.status(err.status).json({ message: err.message }));
+			}
+		}else{
+			res.status(401).json({message: 'Invalid Token !' });	
+		}
+		
+	});
+	
 	
 	router.post('/approveFriendRequest/:id', (req, res) => {
 		if(checkToken(req)) {
