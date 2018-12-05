@@ -437,9 +437,8 @@ module.exports = router => {
 			try {
 
   				var decoded = jwt.verify(token, config.secret);
-
   				return decoded.message === req.params.id;
-
+				
 			} catch(err) {
 
 				return false;
