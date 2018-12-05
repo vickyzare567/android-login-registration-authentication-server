@@ -36,6 +36,7 @@ admin.initializeApp({
 io.on('connection', function (socket) {
 
   socket.on('login', function  (nick) {
+	  console.log(socket.nick);
 	setOnlineStatus((nick), function(resultof){
 	});  
     	users.push(nick);
